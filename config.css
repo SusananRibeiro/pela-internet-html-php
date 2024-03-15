@@ -1,5 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eee;
+}
 
+.menu {
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}
 
+li {
+    list-style: none; 
+    padding-left: 20px;
 
-  
-  
+}
+
+a:hover {
+    text-decoration: none;
+
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container-table {
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 800px;
+    text-align: center;
+}
