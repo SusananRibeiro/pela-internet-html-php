@@ -46,10 +46,14 @@ table {
 td, th {
     padding: 8px;
     font-size: 16px;
-
 }
 
 .cor-diferente td {
-    background-color: #ccc;
+    background-color: #ddd;
 }
 
+@media screen and (max-width: 300px) {
+    .menu {
+        flex-direction: column;
+    }
+}
