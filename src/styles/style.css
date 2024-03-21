@@ -1,0 +1,52 @@
+@import url(reset.css);
+@import url(config.css);
+
+.container {
+    display: flex;
+}
+
+.container-menu {
+    background-color: #890016;
+    display: inline-block;
+    align-items: center;
+    width: 230px;
+    height: 495px;
+}
+
+.image {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.image img {
+    border-radius: 8px;
+    max-width: 90%;
+}
+
+.container-menu iframe {
+    width: 230px;
+    height: 490px;
+}
+.container-cabecalho-conteudo {
+    width: calc(100% - 230px);
+    text-align: center;
+    margin: auto;
+}
+
+.cabecalho {
+    background-color: #3e48cd;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.container-conteudo {
+    background-color: #eee;
+    height: 560px;
+    margin-top: 40px;
+}
+
+.container-conteudo iframe {
+    width: calc(100% - 230px);
+    height: 495px;
+}
