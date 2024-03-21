@@ -1,0 +1,27 @@
+@import url(reset.css);
+
+body {
+    background-color: #890016;
+    color: white;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 230px;
+}
+
+li {
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    background: #a1273b;
+}
