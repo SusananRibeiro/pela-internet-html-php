@@ -10,7 +10,7 @@
     display: inline-block;
     align-items: center;
     width: 230px;
-    height: 495px;
+    height: 475px;
 }
 
 .image {
@@ -19,14 +19,15 @@
 }
 
 .image img {
-    border-radius: 8px;
+    border-radius: 5px;
     max-width: 90%;
 }
 
 .container-menu iframe {
     width: 230px;
-    height: 490px;
+    height: 475px;
 }
+
 .container-cabecalho-conteudo {
     width: calc(100% - 230px);
     text-align: center;
@@ -42,11 +43,12 @@
 
 .container-conteudo {
     background-color: #eee;
-    height: 560px;
+    height: 500px;
     margin-top: 40px;
 }
 
 .container-conteudo iframe {
     width: calc(100% - 230px);
-    height: 495px;
+    height: 475px;
 }
+
