@@ -1,6 +1,6 @@
-@import url(./reset.css);
+@import url(reset.css);
 
-body {
+.container {
     background: #eee;
 }
 
@@ -29,8 +29,13 @@ td, th {
     background-color: #ddd;
 }
 
-@media screen and (max-width: 300px) {
-    .menu {
-        flex-direction: column;
-    }
+/* Mostrar imagem do produto */
+.imagem-none {
+    opacity: 0%;
+}
+
+.imagem-none:hover {
+    opacity: 100%;
+    cursor: pointer;
+    z-index: 999; 
 }

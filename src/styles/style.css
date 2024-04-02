@@ -10,7 +10,6 @@
     display: inline-block;
     align-items: center;
     width: 230px;
-    height: 475px;
 }
 
 .image {
@@ -25,7 +24,7 @@
 
 .container-menu iframe {
     width: 230px;
-    height: 475px;
+    height: 478px;
 }
 
 .container-cabecalho-conteudo {
@@ -35,10 +34,18 @@
 }
 
 .cabecalho {
+    /*Fazer o elemento ficar no top da página e na frente dos outros elementos */
+    position: absolute;
+    top: 0;
+    left: 230px;
+    right: 0;
+    z-index: 1; /* Vai posicionar o elemento na frente */
+    /* Outras configurações */
     background-color: #3e48cd;
     height: 40px;
     padding-top: 5px;
     padding-bottom: 5px;
+
 }
 
 .container-conteudo {
@@ -49,6 +56,5 @@
 
 .container-conteudo iframe {
     width: calc(100% - 230px);
-    height: 475px;
+    height: 300px;
 }
-
