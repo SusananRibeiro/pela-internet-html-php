@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="src/assest/images/cliente.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="src/styles/config.css">
     <title>Lista de Clientes</title>
 </head>
@@ -27,23 +28,42 @@
                         <td>1</td>
                         <td>José Nunes</td>
                         <td>(48) 99999-9999</td>
-                        <td>88804-444</td>
+                        <td><div  id="cep"></div> 88804-444</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Maria Lopes</td>
                         <td>(48) 98888-8888</td>
-                        <td>88811-111</td>
+                        <td class="cep">88811-111</td>
                     </tr>
                     <tr class="cor-diferente">
                         <td>4</td>
                         <td>Jarbas da Silva</td>
                         <td>(48) 97777-7777</td>
-                        <td>88855-555</td>
+                        <td class="cep">88855-555</td>
                     </tr>
                 </tbody>
             </table>
         </div>    
     </main>
+
+    <script>
+        // let dados = new FormData();
+
+        // dados.append('cidade', 'CRICIUMA');
+        // dados.append('uf', 'SC');
+        // dados.append('bairro', 'SAO SEBASTIAO');
+        // dados.append('logradouro', 'RUA BENTO ANTONIO NETO');
+
+        // $.ajax({
+        // url: "http://localhost/pela-internet-html-php/lista_clientes.html",
+        // method: "post",
+        // data: dados,
+        // processData: false,
+        // contentType: false,
+        // }).done(function(resposta) {
+        //     $('#cep').text(resposta);
+        // });
+    </script>
 </body>
 </html>

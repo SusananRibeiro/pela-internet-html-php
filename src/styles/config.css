@@ -29,13 +29,36 @@ td, th {
     background-color: #ddd;
 }
 
-/* Mostrar imagem do produto */
-.imagem-none {
+.img {
+    cursor: pointer;
     opacity: 0%;
+    width: 30px;
+    height: 10px;
+    z-index: 999; 
+}
+/* Mostrar imagem do produto */
+.imagem-css:hover {
+    border: 1px solid #000;
+    width: 100px;
+    height: 70px;
+    opacity: 100%;
+    position: absolute;
+    left: 200px;
+    z-index: 999; 
 }
 
-.imagem-none:hover {
+/* Para fazer no JavaScript e jQuery*/
+.imagem {
+    border: 1px solid #000;
+    width: 100px;
+    height: 70px;
     opacity: 100%;
-    cursor: pointer;
+    position: absolute;
+    left: 200px;
     z-index: 999; 
+}
+
+/* Dados do CEP*/
+.cep {
+    background-color: aquamarine;
 }
