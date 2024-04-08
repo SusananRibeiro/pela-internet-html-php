@@ -29,12 +29,12 @@
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td><img src="src/assests/images/bone.jpg" alt="Boné branco" id="imagem-js" class="img">Boné branco sem estampa</td>
+                        <td id="imagem-js"><img src="src/assests/images/bone.jpg" alt="Boné branco" class="img">Boné branco sem estampa</td>
                         <td>40,00</td>
                     </tr>
                     <tr class="cor-diferente">
                         <td>6</td>
-                        <td><img src="src/assests/images/camiseta.jpg" alt="Camiseta Preta" id="imagem-jq" class="img">Camiseta preta sem estampa</td>
+                        <td id="imagem-jq"><img src="src/assests/images/camiseta.jpg" alt="Camiseta Preta" class="img">Camiseta preta sem estampa</td>
                         <td>50,00</td>
                     </tr> 
                 </tbody>
@@ -46,12 +46,12 @@
 
         $("#imagem-jq").mouseover(function(){
             const imagem =  $(this);
-            imagem.addClass("imagem");
+            imagem.children().addClass("imagem");
         });
 
         $("#imagem-jq").mouseout(function(){
             const imagem =  $(this);
-            imagem.removeClass("imagem");
+            imagem.children().removeClass("imagem");
         });
 
     </script>

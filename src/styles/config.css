@@ -47,6 +47,14 @@ td, th {
     z-index: 999; 
 }
 
+#imagem-js {
+    cursor: pointer;
+}
+
+#imagem-jq {
+    cursor: pointer;
+}
+
 /* Para fazer no JavaScript e jQuery*/
 .imagem {
     border: 1px solid #000;
@@ -66,20 +74,21 @@ td, th {
 .ocultar-cep  {
     cursor: pointer;
     opacity: 0%;
-    width: 40px;
-    height: 10px;
+    width: 0px;
+    height: 0px;
     z-index: 999; 
 }
 
-
-
 .mostrar-cep {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #000;
     border-radius: 5px;
     background-color: #fff;
     font-size: 12px;
-    width: 150px;
-    height: 70px;
+    width: 180px;
+    height: 60px;
     opacity: 100%;
     position: absolute;
     left: 550px;

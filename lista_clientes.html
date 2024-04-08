@@ -28,35 +28,35 @@
                         <td>1</td>
                         <td>José Nunes</td>
                         <td>(48) 99999-9999</td>
-                        <td class="linha-cep"><div class="ocultar-cep"></div>88810000</td>
+                        <td class="linha-cep"><div class="ocultar-cep"></div>88801500</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Maria Lopes</td>
                         <td>(48) 98888-8888</td>
-                        <td class="linha-cep"><div class="ocultar-cep"></div>88811-111</td>
+                        <td class="linha-cep"><div class="ocultar-cep"></div>88808052</td>
                     </tr>
                     <tr class="cor-diferente">
                         <td>4</td>
                         <td>Jarbas da Silva</td>
                         <td>(48) 97777-7777</td>
-                        <td class="linha-cep"><div class="ocultar-cep"></div>88855-555</td>
+                        <td class="linha-cep"><div class="ocultar-cep"></div>88800000</td>
                     </tr>
                 </tbody>
             </table>
         </div>    
     </main>
     <script>
-        // Se usar o FormData
-        let dados = new FormData();
-
+        // FormData
+        let dados = new FormData();        
+        
         dados.append('cidade', 'CRICIUMA');
         dados.append('uf', 'SC');
         dados.append('bairro', 'SAO SEBASTIAO');
         dados.append('logradouro', 'RUA BENTO ANTONIO NETO');
 
         $.ajax({
-            url: "https://ws.assinepelainternet.com.br/rest.php?class=WSCep&method=buscarEndereco&cep=88815318",
+            url: "https://ws.assinepelainternet.com.br/rest.php?class=WSCep&method=buscarEndereco&cep=" + $('.linha-cep').text(),
             method: "post",
             data: dados,
             processData: false,
@@ -64,14 +64,12 @@
         }).done(function(resposta) {
 
             let respostaObjeto = JSON.parse(resposta);
-
             let cidade = respostaObjeto.cidade;
             let uf = respostaObjeto.uf;
             let bairro = respostaObjeto.bairro;
             let logradouro = respostaObjeto.logradouro;
 
-
-            $('.ocultar-cep').text(logradouro + " " + bairro + " " + cidade +  ", " + uf);
+            $('.ocultar-cep').text(logradouro + " BAIRRO " + bairro + " " + cidade +  ", " + uf);
         });
 
         $('.linha-cep').mouseover(function(){
