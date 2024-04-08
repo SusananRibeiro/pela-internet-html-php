@@ -28,42 +28,61 @@
                         <td>1</td>
                         <td>José Nunes</td>
                         <td>(48) 99999-9999</td>
-                        <td><div  id="cep"></div> 88804-444</td>
+                        <td class="linha-cep"><div class="ocultar-cep"></div>88810000</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Maria Lopes</td>
                         <td>(48) 98888-8888</td>
-                        <td class="cep">88811-111</td>
+                        <td class="linha-cep"><div class="ocultar-cep"></div>88811-111</td>
                     </tr>
                     <tr class="cor-diferente">
                         <td>4</td>
                         <td>Jarbas da Silva</td>
                         <td>(48) 97777-7777</td>
-                        <td class="cep">88855-555</td>
+                        <td class="linha-cep"><div class="ocultar-cep"></div>88855-555</td>
                     </tr>
                 </tbody>
             </table>
         </div>    
     </main>
-
     <script>
-        // let dados = new FormData();
+        // Se usar o FormData
+        let dados = new FormData();
 
-        // dados.append('cidade', 'CRICIUMA');
-        // dados.append('uf', 'SC');
-        // dados.append('bairro', 'SAO SEBASTIAO');
-        // dados.append('logradouro', 'RUA BENTO ANTONIO NETO');
+        dados.append('cidade', 'CRICIUMA');
+        dados.append('uf', 'SC');
+        dados.append('bairro', 'SAO SEBASTIAO');
+        dados.append('logradouro', 'RUA BENTO ANTONIO NETO');
 
-        // $.ajax({
-        // url: "http://localhost/pela-internet-html-php/lista_clientes.html",
-        // method: "post",
-        // data: dados,
-        // processData: false,
-        // contentType: false,
-        // }).done(function(resposta) {
-        //     $('#cep').text(resposta);
-        // });
+        $.ajax({
+            url: "https://ws.assinepelainternet.com.br/rest.php?class=WSCep&method=buscarEndereco&cep=88815318",
+            method: "post",
+            data: dados,
+            processData: false,
+            contentType: false,
+        }).done(function(resposta) {
+
+            let respostaObjeto = JSON.parse(resposta);
+
+            let cidade = respostaObjeto.cidade;
+            let uf = respostaObjeto.uf;
+            let bairro = respostaObjeto.bairro;
+            let logradouro = respostaObjeto.logradouro;
+
+
+            $('.ocultar-cep').text(logradouro + " " + bairro + " " + cidade +  ", " + uf);
+        });
+
+        $('.linha-cep').mouseover(function(){
+            const divCep =  $(this);
+            divCep.children().addClass("mostrar-cep");
+        });
+
+        $('.linha-cep').mouseout(function(){
+            const divCep =  $(this);
+            divCep.children().removeClass("mostrar-cep");
+        });
     </script>
 </body>
 </html>
