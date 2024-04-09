@@ -37,13 +37,17 @@ td, th {
     z-index: 999; 
 }
 /* Mostrar imagem do produto */
-.imagem-css:hover {
+#imagem-css{
+    cursor: pointer;
+}
+
+#imagem-css:hover .img {
     border: 1px solid #000;
-    width: 100px;
-    height: 70px;
+    width: 130px;
+    height: 100px;
     opacity: 100%;
     position: absolute;
-    left: 200px;
+    left: 180px;
     z-index: 999; 
 }
 
@@ -58,11 +62,11 @@ td, th {
 /* Para fazer no JavaScript e jQuery*/
 .imagem {
     border: 1px solid #000;
-    width: 100px;
-    height: 70px;
+    width: 130px;
+    height: 100px;
     opacity: 100%;
     position: absolute;
-    left: 200px;
+    left: 180px;
     z-index: 999; 
 }
 
@@ -83,12 +87,12 @@ td, th {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #000;
+    border: 1px solid #808080;
     border-radius: 5px;
     background-color: #fff;
     font-size: 12px;
-    width: 180px;
-    height: 60px;
+    width: 170px;
+    height: 50px;
     opacity: 100%;
     position: absolute;
     left: 550px;
