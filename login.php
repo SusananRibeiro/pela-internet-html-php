@@ -46,19 +46,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/styles/login.css">
     <title>Login</title>
 </head>
 <body>
-    <div>
+    <div class="conteudo">
         <form action="#" method="post">
             <div>
-                <label for="usuario">Usuário</label>
-                <input type="text" name="usuario" id="usuario">
+                <div>
+                    <label for="usuario">Usuário</label>
+                </div>
+                <div>
+                    <input type="text" name="usuario" id="usuario">
+                </div>
+                <div>
+                    <label for="senha">Senha</label>
+                </div>
+                <div>
+                    <input type="password" name="senha" id="senha">
+                </div>
             </div>
-            <div>
-                <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha">
-            </div>
+
             <button>Acessar</button>
         </form>
     </div>
