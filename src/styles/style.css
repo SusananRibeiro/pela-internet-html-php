@@ -38,13 +38,12 @@
     position: absolute;
     top: 0;
     left: 230px;
-    right: 0;
+    right: 10px;
     z-index: 1; /* Vai posicionar o elemento na frente */
     background-color: #3e48cd;
     height: 40px;
     padding-top: 5px;
     padding-bottom: 5px;
-
 }
 
 .cabecalho a {

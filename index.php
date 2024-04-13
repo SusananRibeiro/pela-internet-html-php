@@ -1,3 +1,16 @@
+<?php 
+    session_start();
+    // Verificar se o usuário está setado no cookie
+    if($_COOKIE['dado']) {
+        $_SESSION['dado'] = $_COOKIE['dado'];
+    }
+
+    if(!$_SESSION['dado']) {
+        header('Location: login.php');
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,7 +27,7 @@
                 <img src="src/assests/images/logo-empresa.png" alt="Logo da empresa">
             </div>
             <div>
-                <iframe src="menu.html"></iframe>
+                <iframe src="menu.php"></iframe>
             </div>
         </div>
     
@@ -23,7 +36,7 @@
                 <a href="logoff.php">Sair</a>
             </div>
             <div class="container-conteudo">
-                <iframe src="lista_clientes.html" name="lista"></iframe>
+                <iframe src="lista_clientes.php" name="lista"></iframe>
             </div>
         </div>
     </div>
