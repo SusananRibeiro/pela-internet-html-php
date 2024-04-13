@@ -51,6 +51,7 @@ td, th {
     z-index: 999; 
 }
 
+/* Para fazer no JavaScript e jQuery*/
 #imagem-js {
     cursor: pointer;
 }
@@ -59,7 +60,6 @@ td, th {
     cursor: pointer;
 }
 
-/* Para fazer no JavaScript e jQuery*/
 .imagem {
     border: 1px solid #000;
     width: 130px;
