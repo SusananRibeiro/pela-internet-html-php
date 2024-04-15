@@ -6,29 +6,33 @@ body {
 
 .conteudo {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #ddd;
     border-radius: 5px;
     width: 220px;
     padding: 25px;
-    margin: auto;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 input {
     width: 200px;
     height: 25px;
-    border: 1px solid;
+    border: 2px solid;
     border-radius: 3px;
     border-color: #000 #aaa #aaa #000;
+    margin-bottom: 10px;
 }
 
 button {
     background-color: #eee;
     width: 200px;
     height: 25px;
-    border: 1px solid;
+    border: 2px solid;
     border-radius: 3px;
     border-color:#aaa #000 #000 #aaa;
-    margin-top: 15px;
+    margin-top: 10px;
 }
