@@ -1,14 +1,5 @@
 <?php 
-    session_start();
-    // Verificar se o usuário está setado no cookie
-    if($_COOKIE['dado']) {
-        $_SESSION['dado'] = $_COOKIE['dado'];
-    }
-
-    if(!$_SESSION['dado']) {
-        header('Location: login.php');
-    }
-
+    include('verificarLogin.php');
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +24,7 @@
     
         <div class="container-cabecalho-conteudo">
             <div class="cabecalho">
-                <a href="logoff.php">Sair</a>
+                <a href="logoff.php" class="sair">Sair</a>
             </div>
             <div class="container-conteudo">
                 <iframe src="lista_clientes.php" name="lista"></iframe>
