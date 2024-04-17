@@ -6,13 +6,10 @@
         if($_POST['usuario'] == 'master' && $_POST['senha'] == 'master00') {
             $_SESSION['logado'] = true;
             header('Location: index.php');  
+        } else if (isset($_GET['erro'])) {
+            $erro = 'Usuário/Senha inválido!';
         }
-
-    }
-
-    if(isset($_GET['erro'])) {
-        $erro = 'Usuário/Senha inválido!';
-    }
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +22,7 @@
 </head>
 <body>
     <div class="conteudo">
-        <div style='color: red; margin: 10px;'>
+        <div style='color: red; font-size: 11px; margin: 10px;'>
             <?php echo $erro ?? '' ?>
         </div>
         <form action="#" method="post">
