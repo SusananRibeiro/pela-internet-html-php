@@ -36,3 +36,10 @@ button {
     border-color:#aaa #000 #000 #aaa;
     margin-top: 10px;
 }
+
+.erro {
+    color: red;
+    
+    margin: 10px;
+
+}
