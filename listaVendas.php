@@ -27,7 +27,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="cor-diferente">
+                <?php
+                    include "conexao.php";                   
+
+                    $sql = "SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data FROM vendas ven INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id";
+                    $resultado = mysqli_query($conexao, $sql);
+                
+                    while($registro = mysqli_fetch_row($resultado)) {
+                        $idVenda = $registro[0];
+                        $nomeCliente = $registro[1];
+                        $nomeProduto = $registro[2];
+                        $quantidade = $registro[3];
+                        $total = $registro[4];
+                        $dataVenda = $registro[5];
+                        $dataBrasil = implode("/",array_reverse(explode("-", $dataVenda))); 
+                        echo "<tr>";
+                        echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
+                        echo "</tr>";
+                    }
+
+                    // Fechar a conexão com o bando
+                    mysqli_close($conexao);
+                    ?>
+                    <!-- <tr class="cor-diferente">
                         <td>2</td>
                         <td>Maria Lopes</td>
                         <td>Boné branco sem estampa</td>
@@ -58,7 +80,7 @@
                         <td>3</td>
                         <td>150,00</td>
                         <td>09/03/24</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>    

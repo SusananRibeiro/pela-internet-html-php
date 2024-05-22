@@ -28,7 +28,7 @@
                 <a href="logoff.php" class="sair">Sair</a>
             </div>
             <div class="container-conteudo">
-                <iframe src="lista_clientes.php" name="lista"></iframe>
+                <iframe src="listaClientes.php" name="lista"></iframe>
             </div>
         </div>
     </div>

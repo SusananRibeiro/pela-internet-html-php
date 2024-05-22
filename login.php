@@ -1,9 +1,9 @@
 <?php 
-    
+    include "conexao.php";
     session_start();
 
     if(isset($_POST['usuario'], $_POST['senha'])) {
-        if($_POST['usuario'] == 'master' && $_POST['senha'] == 'master00') {
+        if($_POST['usuario'] == 'teste' && $_POST['senha'] == '123') {
             $_SESSION['logado'] = true;
             header('Location: index.php');  
         } else if (isset($_GET['erro'])) {
@@ -25,7 +25,7 @@
         <div style='color: red; font-size: 11px; margin: 10px;'>
             <?php echo $erro ?? '' ?>
         </div>
-        <form action="#" method="post">
+        <form action="#" method="post" action="login.php">
             <div>
                 <div>
                     <label for="usuario">Usuário</label>
@@ -46,3 +46,7 @@
     </div>
 </body>
 </html>
+
+<?php 
+    mysqli_close($conexao);
+?>

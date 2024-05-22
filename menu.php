@@ -15,8 +15,9 @@
         <ul class="menu">
             <li id="submenu_cadastros">Cadastros
                 <ul>
-                    <li><a href="lista_clientes.php" target="lista" title="Lista de Clientes">Clientes</a></li>
-                    <li><a href="lista_produtos.php" target="lista" title="Lista de Produtos">Produtos</a></li>
+                    <li><a href="listaClientes.php" target="lista" title="Lista de Clientes">Clientes</a></li>
+                    <li><a href="listaProdutos.php" target="lista" title="Lista de Produtos">Produtos</a></li>
+                    <li><a href="listaUsuarios.php" target="lista" title="Lista de Produtos">Usuários</a></li>
                 </ul>
             </li>
         </ul>
@@ -24,7 +25,7 @@
         <ul class="menu">
             <li id="submenu_vendas">Vendas
                 <ul>
-                    <li><a href="lista_vendas.php" target="lista" title="Lista de Vendas">Vendas</a></li>
+                    <li><a href="listaVendas.php" target="lista" title="Lista de Vendas">Vendas</a></li>
                 </ul>
             </li>
         </ul>
