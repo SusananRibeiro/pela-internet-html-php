@@ -26,7 +26,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="cor-diferente">
+
+                    <?php
+                        include "conexao.php";
+
+                        $sql = "SELECT * FROM clientes";
+                        $resultado = mysqli_query($conexao, $sql);
+                    
+                        while($registro = mysqli_fetch_row($resultado)) {
+                            $idCliente = $registro[0];
+                            $nomeCliente = $registro[1];
+                            $telefone = $registro[2];
+                            $cep = $registro[3];
+                            echo "<tr>";
+                            echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td>$cep</td>";
+                            echo "</tr>";
+                        }
+
+                        // Fechar a conexão com o bando
+                        mysqli_close($conexao);
+                    ?>
+                    <!-- <tr class="cor-diferente">
                         <td>1</td>
                         <td>José Nunes</td>
                         <td>(48) 99999-9999</td>
@@ -43,7 +63,7 @@
                         <td>Jarbas da Silva</td>
                         <td>(48) 97777-7777</td>
                         <td class="linha-cep">88801030<div class="ocultar-cep"></div></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>    
