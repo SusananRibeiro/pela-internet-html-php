@@ -14,6 +14,7 @@
 </head>
 <body>
     <main class="container">
+        <a href="formularioUsuario.php">Novo</a>
         <h1>Lista de Usuários</h1>
         <div class="container-table">
             <table>
@@ -31,11 +32,21 @@
                         $resultado = mysqli_query($conexao, $sql);
                     
                         while($registro = mysqli_fetch_row($resultado)) {
+                            $idUsuario = $registro[0];
                             $nomeUsuario = $registro[1];
                             $senhaUsuario = $registro[2];
-                            echo "<tr>";
-                            echo "<td>$nomeUsuario</td><td>$senhaUsuario</td>";
-                            echo "</tr>";
+                            $numeroParUsuario = $idUsuario % 2;
+                            if($numeroParUsuario != 0) {
+                                echo "<tr class=cor-diferente>";
+                                echo "<td>$nomeUsuario</td><td>$senhaUsuario</td>";
+                                echo "</tr>";
+
+                            } else {
+                                echo "<tr>";
+                                echo "<td>$nomeUsuario</td><td>$senhaUsuario</td>";
+                                echo "</tr>";
+                            }
+
                         }
 
                         // Fechar a conexão com o bando

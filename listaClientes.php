@@ -1,6 +1,7 @@
 <?php 
     include('verificarLogin.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,6 +15,7 @@
 </head>
 <body>
     <main class="container">
+        <a href="formularioCliente.php">Novo</a>
         <h1>Lista de Clientes</h1>
         <div class="container-table">
             <table>
@@ -38,19 +40,29 @@
                             $nomeCliente = $registro[1];
                             $telefone = $registro[2];
                             $cep = $registro[3];
-                            echo "<tr>";
-                            echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td>$cep</td>";
-                            echo "</tr>";
+                            $numeroParCliente = $idCliente % 2;
+
+                            if($numeroParCliente != 0) {
+                                echo "<tr class=cor-diferente>";
+                                echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td class=linha-cep>$cep<div class=ocultar-cep></div></td>";
+                                echo "</tr>";
+
+                            } else {
+                                echo "<tr>";
+                                echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td class=linha-cep>$cep<div class=ocultar-cep></div></td>";
+                                echo "</tr>";
+                            }
+
                         }
 
                         // Fechar a conexão com o bando
                         mysqli_close($conexao);
                     ?>
-                    <!-- <tr class="cor-diferente">
+                    <!-- <tr class=cor-diferente>
                         <td>1</td>
                         <td>José Nunes</td>
                         <td>(48) 99999-9999</td>
-                        <td class="linha-cep">88801500<div class="ocultar-cep"></div></td>
+                        <td class=linha-cep>88801500<div class=ocultar-cep></div></td>
                     </tr>
                     <tr>
                         <td>3</td>

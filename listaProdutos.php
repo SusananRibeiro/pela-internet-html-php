@@ -14,6 +14,7 @@
 </head>
 <body>
     <main class="container">
+        <a href="formularioProduto.php">Novo</a>
         <h1>Lista de Produtos</h1>
         <div class="container-table">
             <table>
@@ -25,7 +26,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr class="cor-diferente">
+                    <?php
+                        include "conexao.php";
+
+                        $sql = "SELECT * FROM produtos";
+                        $resultado = mysqli_query($conexao, $sql);
+                    
+                        while($registro = mysqli_fetch_row($resultado)) {
+                            $idProduto = $registro[0];
+                            $nomeProduto = $registro[1];
+                            $valorProduto = $registro[2];
+                            $numeroParProduto = $idProduto % 2;
+
+                            if($numeroParProduto != 0) {
+                                echo "<tr class=cor-diferente>";
+                                echo "<td>$idProduto</td><td>$nomeProduto</td><td>$valorProduto</td>";
+                                echo "</tr>";
+                            } else {
+                                echo "<tr>";
+                                echo "<td>$idProduto</td><td>$nomeProduto</td><td>$valorProduto</td>";
+                                echo "</tr>";
+                            }
+
+                        }
+
+                        // Fechar a conexão com o bando
+                        mysqli_close($conexao);
+                    ?>
+
+                    <!-- <tr class=cor-diferente>
                         <td>2</td>
                         <td id="imagem-css"><img src="src/assests/images/caneca.jpg" alt="Caneca branca" class="img">Caneca branca sem estampa</td>
                         <td>20,00</td>
@@ -40,25 +69,6 @@
                         <td id="imagem-jq"><img src="src/assests/images/camiseta.jpg" alt="Camiseta Preta" class="img">Camiseta preta sem estampa</td>
                         <td>50,00</td>
                     </tr>  -->
-
-                    <?php
-                        include "conexao.php";
-
-                        $sql = "SELECT * FROM produtos";
-                        $resultado = mysqli_query($conexao, $sql);
-                    
-                        while($registro = mysqli_fetch_row($resultado)) {
-                            $idProduto = $registro[0];
-                            $nomeProduto = $registro[1];
-                            $valorProduto = $registro[2];
-                            echo "<tr>";
-                            echo "<td>$idProduto</td><td>$nomeProduto</td><td>$valorProduto</td>";
-                            echo "</tr>";
-                        }
-
-                        // Fechar a conexão com o bando
-                        mysqli_close($conexao);
-                    ?>
                 </tbody>
             </table>
         </div>

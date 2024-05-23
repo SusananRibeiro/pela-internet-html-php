@@ -41,46 +41,23 @@
                         $total = $registro[4];
                         $dataVenda = $registro[5];
                         $dataBrasil = implode("/",array_reverse(explode("-", $dataVenda))); 
-                        echo "<tr>";
-                        echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
-                        echo "</tr>";
+                        $numeroParVendas = $idVenda % 2;
+
+                        if($numeroParVendas != 0) {
+                            echo "<tr class=cor-diferente>";
+                            echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
+                            echo "</tr>";
+                        } else {
+                            echo "<tr>";
+                            echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
+                            echo "</tr>";
+                        }
+
                     }
 
                     // Fechar a conexão com o bando
                     mysqli_close($conexao);
                     ?>
-                    <!-- <tr class="cor-diferente">
-                        <td>2</td>
-                        <td>Maria Lopes</td>
-                        <td>Boné branco sem estampa</td>
-                        <td>1</td>
-                        <td>40,00</td>
-                        <td>01/03/24</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Jarbas da Silva</td>
-                        <td>Boné branco sem estampa</td>
-                        <td>2</td>
-                        <td>80,00</td>
-                        <td>08/03/24</td>
-                    </tr>
-                    <tr class="cor-diferente">
-                        <td>4</td>
-                        <td>Jarbas da Silva</td>
-                        <td>Caneca branca sem estampa</td>
-                        <td>1</td>
-                        <td>20,00</td>
-                        <td>08/03/24</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>José Nunes</td>
-                        <td>Camiseta preta sem estampa</td>
-                        <td>3</td>
-                        <td>150,00</td>
-                        <td>09/03/24</td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>    
