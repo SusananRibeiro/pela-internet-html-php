@@ -31,7 +31,7 @@
 
                     <?php
                         include "conexao.php";
-
+                        $contadorCliente = 1;
                         $sql = "SELECT * FROM clientes";
                         $resultado = mysqli_query($conexao, $sql);
                     
@@ -40,7 +40,7 @@
                             $nomeCliente = $registro[1];
                             $telefone = $registro[2];
                             $cep = $registro[3];
-                            $numeroParCliente = $idCliente % 2;
+                            $numeroParCliente = $contadorCliente % 2;
 
                             if($numeroParCliente != 0) {
                                 echo "<tr class=cor-diferente>";
@@ -52,30 +52,13 @@
                                 echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td class=linha-cep>$cep<div class=ocultar-cep></div></td>";
                                 echo "</tr>";
                             }
+                            $contadorCliente++;
 
                         }
 
                         // Fechar a conexão com o bando
                         mysqli_close($conexao);
                     ?>
-                    <!-- <tr class=cor-diferente>
-                        <td>1</td>
-                        <td>José Nunes</td>
-                        <td>(48) 99999-9999</td>
-                        <td class=linha-cep>88801500<div class=ocultar-cep></div></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Maria Lopes</td>
-                        <td>(48) 98888-8888</td>
-                        <td class="linha-cep">88801014<div class="ocultar-cep"></div></td>
-                    </tr>
-                    <tr class="cor-diferente">
-                        <td>4</td>
-                        <td>Jarbas da Silva</td>
-                        <td>(48) 97777-7777</td>
-                        <td class="linha-cep">88801030<div class="ocultar-cep"></div></td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>    

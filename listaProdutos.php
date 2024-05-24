@@ -28,47 +28,32 @@
                 <tbody>
                     <?php
                         include "conexao.php";
-
+                        $contadorProduto = 1;
                         $sql = "SELECT * FROM produtos";
                         $resultado = mysqli_query($conexao, $sql);
                     
                         while($registro = mysqli_fetch_row($resultado)) {
                             $idProduto = $registro[0];
                             $nomeProduto = $registro[1];
-                            $valorProduto = $registro[2];
-                            $numeroParProduto = $idProduto % 2;
+                            $valorProduto = str_replace(".", ",", $registro[2]);
+                            $numeroParProduto = $contadorProduto % 2;
 
                             if($numeroParProduto != 0) {
                                 echo "<tr class=cor-diferente>";
-                                echo "<td>$idProduto</td><td>$nomeProduto</td><td>$valorProduto</td>";
+                                echo "<td>$idProduto</td><td id=imagem-js><img src=src/assests/images/camiseta.jpg alt=Camiseta Preta class=img>$nomeProduto</td><td>$valorProduto</td>";
                                 echo "</tr>";
                             } else {
                                 echo "<tr>";
-                                echo "<td>$idProduto</td><td>$nomeProduto</td><td>$valorProduto</td>";
+                                echo "<td>$idProduto</td><td id=imagem-js><img src=src/assests/images/camiseta.jpg alt=Camiseta Preta class=img>$nomeProduto</td><td>$valorProduto</td>";
                                 echo "</tr>";
                             }
+                            $contadorProduto++;
 
                         }
 
                         // Fechar a conexão com o bando
                         mysqli_close($conexao);
                     ?>
-
-                    <!-- <tr class=cor-diferente>
-                        <td>2</td>
-                        <td id="imagem-css"><img src="src/assests/images/caneca.jpg" alt="Caneca branca" class="img">Caneca branca sem estampa</td>
-                        <td>20,00</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td id="imagem-js"><img src="src/assests/images/bone.jpg" alt="Boné branco" class="img">Boné branco sem estampa</td>
-                        <td>40,00</td>
-                    </tr>
-                    <tr class="cor-diferente">
-                        <td>6</td>
-                        <td id="imagem-jq"><img src="src/assests/images/camiseta.jpg" alt="Camiseta Preta" class="img">Camiseta preta sem estampa</td>
-                        <td>50,00</td>
-                    </tr>  -->
                 </tbody>
             </table>
         </div>

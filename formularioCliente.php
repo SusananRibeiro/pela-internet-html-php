@@ -1,3 +1,25 @@
+<?php 
+    include "conexao.php";
+
+    if(isset($_POST["btn_salvarCliente"])) {
+        $nomeCliente = $_POST["campo_nomeCliente"]; 
+        $telefone = $_POST["campo_telefone"]; 
+        $cep = $_POST["campo_cep"]; 
+
+        $sqlCliente = "INSERT INTO clientes (nome_cliente, telefone, cep) VALUES ('$nomeCliente', '$telefone', $cep)";
+        $resultadoCliente = mysqli_query($conexao, $sqlCliente);
+        $linhasCliente = mysqli_affected_rows($conexao);
+
+        if($linhasCliente == 1) {
+            echo "Cliente salvo com sucesso!<br/>";
+
+        } else {
+            echo "Erro ao salvar o cliente<br/>";
+        }
+    }
+    
+    mysqli_close($conexao);
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,6 +30,7 @@
     <title>Novo Cliente</title>
 </head>
 <body>
+    <h1>Cadastro cliente</h1>
 
     <form name="CadastroCliente" method="post" action="formularioCliente.php">
         <label for="">Nome Cliente: </label><br>
@@ -23,27 +46,6 @@
         <input type="submit" name="btn_salvarCliente" value="Salvar">
         <input type="reset" name="btn_limparCliente" value="Limpar">
     </form>
-
-    <?php 
-        include "conexao.php";
-
-        $nomeCliente = $_POST["campo_nomeCliente"]; 
-        $telefone = $_POST["campo_telefone"]; 
-        $cep = $_POST["campo_cep"]; 
-
-        $sqlCliente = "INSERT INTO clientes (nome_cliente, telefone, cep) VALUES ('$nomeCliente', '$telefone', $cep)";
-        $resultadoCliente = mysqli_query($conexao, $sqlCliente);
-        $linhasCliente = mysqli_affected_rows($conexao);
-
-        if($linhasCliente == 1) {
-            echo "Cliente salvo com sucesso!<br/>";
-
-        } else {
-            echo "Erro ao salvar o cliente";
-        }
-
-        mysqli_close($conexao);
-    ?>
 
     <div>
         <br>

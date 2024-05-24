@@ -27,7 +27,7 @@
                 <tbody>
                     <?php
                         include "conexao.php";
-
+                        $contadorUsuario = 1;
                         $sql = "SELECT * FROM usuarios";
                         $resultado = mysqli_query($conexao, $sql);
                     
@@ -35,7 +35,7 @@
                             $idUsuario = $registro[0];
                             $nomeUsuario = $registro[1];
                             $senhaUsuario = $registro[2];
-                            $numeroParUsuario = $idUsuario % 2;
+                            $numeroParUsuario = $contadorUsuario % 2;
                             if($numeroParUsuario != 0) {
                                 echo "<tr class=cor-diferente>";
                                 echo "<td>$nomeUsuario</td><td>$senhaUsuario</td>";
@@ -46,6 +46,7 @@
                                 echo "<td>$nomeUsuario</td><td>$senhaUsuario</td>";
                                 echo "</tr>";
                             }
+                            $contadorUsuario++;                           
 
                         }
 
