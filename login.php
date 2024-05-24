@@ -2,14 +2,23 @@
     include "conexao.php";
     session_start();
 
-    if(isset($_POST['usuario'], $_POST['senha'])) {
-        if($_POST['usuario'] == 'teste' && $_POST['senha'] == '123') {
+    if(isset($_POST['btn_acessar'])) {
+        $usuario = $_POST['usuario'];
+        $senha = $_POST['senha'];
+
+        $sql = "SELECT * FROM usuarios WHERE nome_usuario = '$usuario' AND senha = '$senha'";
+        $resultado = mysqli_query($conexao, $sql);
+        $linhas = mysqli_affected_rows($conexao);
+
+        if($linhas > 0) {
             $_SESSION['logado'] = true;
             header('Location: index.php');  
         } else if (isset($_GET['erro'])) {
             $erro = 'Usuário/Senha inválido!';
         }
     } 
+
+    mysqli_close($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -41,12 +50,8 @@
                 </div>
             </div>
 
-            <button>Acessar</button>
+            <button name="btn_acessar">Acessar</button>
         </form>
     </div>
 </body>
 </html>
-
-<?php 
-    mysqli_close($conexao);
-?>
