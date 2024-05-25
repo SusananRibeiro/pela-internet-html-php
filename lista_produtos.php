@@ -14,7 +14,7 @@
 </head>
 <body>
     <main class="container">
-        <a href="formularioProduto.php">Novo</a>
+        <a href="cadastro_produto.php">Novo</a>
         <h1>Lista de Produtos</h1>
         <div class="container-table">
             <table>
@@ -23,6 +23,8 @@
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Valor</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,10 +43,14 @@
                             if($numeroParProduto != 0) {
                                 echo "<tr class=cor-diferente>";
                                 echo "<td>$idProduto</td><td id=imagem-js><img src=src/assests/images/camiseta.jpg alt=Camiseta Preta class=img>$nomeProduto</td><td>$valorProduto</td>";
+                                echo "<td><a href=edicao_produto.php>Editar</a></td>";
+                                echo "<td><a href=excluir_produto.php>Excluir</a></td>";
                                 echo "</tr>";
                             } else {
                                 echo "<tr>";
                                 echo "<td>$idProduto</td><td id=imagem-js><img src=src/assests/images/camiseta.jpg alt=Camiseta Preta class=img>$nomeProduto</td><td>$valorProduto</td>";
+                                echo "<td><a href=edicao_produto.php>Editar</a></td>";
+                                echo "<td><a href=excluir_produto.php>Excluir</a></td>";
                                 echo "</tr>";
                             }
                             $contadorProduto++;

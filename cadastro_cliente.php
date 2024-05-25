@@ -32,7 +32,7 @@
 <body>
     <h1>Cadastro cliente</h1>
 
-    <form name="CadastroCliente" method="post" action="formularioCliente.php">
+    <form name="CadastroCliente" method="post" action="#">
         <label for="">Nome Cliente: </label><br>
         <input type="text" name="campo_nomeCliente"><br><br>
         
@@ -49,7 +49,7 @@
 
     <div>
         <br>
-        <a href="listaClientes.php">Voltar</a>
+        <a href="lista_clientes.php">Voltar</a>
     </div>
 </body>
 </html>

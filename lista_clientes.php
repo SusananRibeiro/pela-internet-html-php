@@ -15,7 +15,7 @@
 </head>
 <body>
     <main class="container">
-        <a href="formularioCliente.php">Novo</a>
+        <a href="cadastro_cliente.php">Novo</a>
         <h1>Lista de Clientes</h1>
         <div class="container-table">
             <table>
@@ -25,10 +25,11 @@
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th>CEP</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     <?php
                         include "conexao.php";
                         $contadorCliente = 1;
@@ -45,11 +46,15 @@
                             if($numeroParCliente != 0) {
                                 echo "<tr class=cor-diferente>";
                                 echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td class=linha-cep>$cep<div class=ocultar-cep></div></td>";
+                                echo "<td><a href=edicao_cliente.php>Editar</a></td>";
+                                echo "<td><a href=excluir_cliente.php>Excluir</a></td>";
                                 echo "</tr>";
 
                             } else {
                                 echo "<tr>";
                                 echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td class=linha-cep>$cep<div class=ocultar-cep></div></td>";
+                                echo "<td><a href=edicao_cliente.php>Editar</a></td>";
+                                echo "<td><a href=excluir_cliente.php>Excluir</a></td>";
                                 echo "</tr>";
                             }
                             $contadorCliente++;
