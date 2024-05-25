@@ -33,7 +33,7 @@
 
     <h1>Cadastro Produto</h1>
 
-    <form name="CadastroProduto" method="post" action="formularioProduto.php">
+    <form name="CadastroProduto" method="post" action="#">
         <label for="">Nome Produto: </label><br>
         <input type="text" name="campo_nomeProduto"><br><br>
         
@@ -46,7 +46,7 @@
 
     <div>
         <br>
-        <a href="listaProdutos.php">Voltar</a>
+        <a href="lista_produtos.php">Voltar</a>
     </div>
     
 </body>

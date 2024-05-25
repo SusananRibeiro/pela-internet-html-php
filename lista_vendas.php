@@ -24,6 +24,8 @@
                         <th>Quantidade</th>
                         <th>Total</th>
                         <th>Data</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,10 +51,14 @@
                             if($numeroParVendas != 0) {
                                 echo "<tr class=cor-diferente>";
                                 echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
+                                echo "<td><a href=edicao_venda.php>Editar</a></td>";
+                                echo "<td><a href=excluir_venda.php>Excluir</a></td>";
                                 echo "</tr>";
                             } else {
                                 echo "<tr>";
                                 echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
+                                echo "<td><a href=edicao_venda.php>Editar</a></td>";
+                                echo "<td><a href=excluir_venda.php>Excluir</a></td>";
                                 echo "</tr>";
                             }
                             $contadorVenda++;
