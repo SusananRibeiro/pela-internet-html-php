@@ -3,7 +3,7 @@
     require "conexao.php";
     
     $lista = [];
-    $sql = $pdo -> query("SELECT * FROM produtos"); 
+    $sql = $conexaoComBanco -> query("SELECT * FROM produtos"); 
     // Valida sem tem registro no banco de dados
     if($sql -> rowCount() > 0) {
         $lista = $sql -> fetchAll(PDO::FETCH_ASSOC);

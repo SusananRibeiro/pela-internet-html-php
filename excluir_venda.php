@@ -4,7 +4,7 @@
     $id = filter_input(INPUT_GET, 'id');   
 
     if($id) {
-        $sql = $pdo->prepare("DELETE FROM vendas WHERE id = :id");
+        $sql = $conexaoComBanco->prepare("DELETE FROM vendas WHERE id = :id");
         $sql -> bindValue(':id', $id);
         $sql -> execute();
     } else {
@@ -13,9 +13,3 @@
 
     header("Location: lista_vendas.php");
 ?>
-<h1>Excluir Venda</h1>
-
-<div>
-    <br>
-    <a href="lista_vendas.php">Voltar</a>
-</div>

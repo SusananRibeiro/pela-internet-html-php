@@ -2,13 +2,12 @@
     include('verificarLogin.php');
     require "conexao.php";
 
-
     // GET
     $dadosCliente = [];
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $pdo -> prepare("SELECT * FROM clientes WHERE id = :id");
+        $sql = $conexaoComBanco -> prepare("SELECT * FROM clientes WHERE id = :id");
         $sql -> bindValue(':id', $id);
         $sql -> execute();
 
@@ -32,7 +31,7 @@
 
         if($id && $nome && $telefone && $cep) {
 
-            $sql = $pdo -> prepare("UPDATE clientes SET nome_cliente = :nome, telefone = :telefone, cep = :cep WHERE id = :id");
+            $sql = $conexaoComBanco -> prepare("UPDATE clientes SET nome_cliente = :nome, telefone = :telefone, cep = :cep WHERE id = :id");
             $sql -> bindValue(':nome', $nome);
             $sql -> bindValue(':telefone', $telefone);
             $sql -> bindValue(':cep', $cep);
@@ -63,7 +62,7 @@
     <div class="conteudo">
         <form name="CadastroCliente" method="post" action="#">
             <label for="">ID:</label>
-            <input type="text" name="txt_id" value="<?= $dadosCliente['id'];?>"/> <!-- disabled  -->
+            <input type="text" name="txt_id" value="<?= $dadosCliente['id'];?>" readonly/> 
 
             <label for="">Nome do cliente:</label>
             <input type="text" name="txt_nome" value="<?= $dadosCliente['nome_cliente'];?>" />
@@ -78,7 +77,6 @@
         </form>
     </div>
     <div>
-        <br>
         <a href="lista_clientes.php">Voltar</a>
     </div>
 </body>

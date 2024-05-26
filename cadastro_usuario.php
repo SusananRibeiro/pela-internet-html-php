@@ -11,23 +11,16 @@
 
         if($nomeUsuario && $senha) {
         // Ver se tem algum nome cadastrado primeiro fazer essa validação
-        $sql = $pdo -> prepare("SELECT * FROM usuarios WHERE nome_usuario = :nome");
+        $sql = $conexaoComBanco -> prepare("SELECT * FROM usuarios WHERE nome_usuario = :nome");
         $sql -> bindValue(':nome', $nomeUsuario);
         $sql -> execute();
 
             // Ver se tem algum e-mail cadastrado
             if($sql -> rowCount() === 0) {
-                // Query do MySQL para inserir dados na tabela
-                $sql = $pdo->prepare("INSERT INTO usuarios (nome_usuario, senha) VALUES (:nome, :senha)");
-
-                // Passar os valores da Query, não precisa ser na ordem colocada, mas é bom colocar na mesma ordem, por padrão
+                $sql = $conexaoComBanco->prepare("INSERT INTO usuarios (nome_usuario, senha) VALUES (:nome, :senha)");
                 $sql -> bindValue(':nome', $nomeUsuario);
                 $sql -> bindValue(':senha', $senha);
-
-                // Persiste/salvar o dados no banco de dados
                 $sql -> execute();
-
-                // Voltar para a página index apos salvar os dados
                 header("Location: lista_usuarios.php");
                 exit; // para sair do IF
 
@@ -55,20 +48,19 @@
 <body>
 
     <h1>Cadastro Usuário</h1>
+    <div class="conteudo">
+        <form name="CadastroUsuario" method="post" action="cadastro_usuario.php">
+            <label for="">Usuário: </label><br>
+            <input type="text" name="txt_usuario">
+            
+            <label for="">Senha: </label><br>
+            <input type="password" name="txt_senha"> 
 
-    <form name="CadastroUsuario" method="post" action="cadastro_usuario.php">
-        <label for="">Usuário: </label><br>
-        <input type="text" name="txt_usuario"><br><br>
-        
-        <label for="">Senha: </label><br>
-        <input type="password" name="txt_senha"><br><br>  
-
-        <input type="submit" name="btn_salvarUsuario" value="Salvar">
-        <input type="reset" name="btn_limparUsuario" value="Limpar">
-    </form>
-
+            <input type="submit" name="btn_salvarUsuario" value="Salvar">
+            <input type="reset" name="btn_limparUsuario" value="Limpar">
+        </form>
+    </div>
     <div>
-        <br>
         <a href="lista_usuarios.php">Voltar</a>
     </div>
 </body>

@@ -8,7 +8,7 @@
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $pdo -> prepare("SELECT * FROM produtos WHERE id = :id");
+        $sql = $conexaoComBanco-> prepare("SELECT * FROM produtos WHERE id = :id");
         $sql -> bindValue(':id', $id);
         $sql -> execute();
 
@@ -31,7 +31,7 @@
 
         if($id && $nome && $valor) {
 
-            $sql = $pdo -> prepare("UPDATE produtos SET nome_produto = :nome, valor = :valor WHERE id = :id");
+            $sql = $conexaoComBanco -> prepare("UPDATE produtos SET nome_produto = :nome, valor = :valor WHERE id = :id");
             $sql -> bindValue(':nome', $nome);
             $sql -> bindValue(':valor', $valor);
             $sql -> bindValue(':id', $id);
@@ -58,24 +58,21 @@
 <body>
 
     <h1>Editar Produto</h1>
-<div class="conteudo">
-    <form name="CadastroProduto" method="post" action="#">
-        <label for="">ID:</label>
-        <input type="text" name="txt_id" value="<?= $dadosProduto['id']; ?>"/> <!-- disabled  -->
+    <div class="conteudo">
+        <form name="CadastroProduto" method="post" action="#">
+            <label for="">ID:</label>
+            <input type="text" name="txt_id" value="<?= $dadosProduto['id']; ?>" readonly/> 
 
-        <label for="">Nome do produto:</label>
-        <input type="text" name="txt_nome" value="<?= $dadosProduto['nome_produto']; ?>" />
+            <label for="">Nome do produto:</label>
+            <input type="text" name="txt_nome" value="<?= $dadosProduto['nome_produto']; ?>" />
 
-        <label>Valor: </label>
-        <input type="text" name="txt_valor"  value="<?= $dadosProduto['valor']; ?>" />
+            <label>Valor: </label>
+            <input type="text" name="txt_valor"  value="<?= $dadosProduto['valor']; ?>" />
 
-        <input type="submit" name="btn_Atualizar" value="Atualizar" />
-    </form>
-</div>
-
-
+            <input type="submit" name="btn_Atualizar" value="Atualizar" />
+        </form>
+    </div>
     <div>
-        <br>
         <a href="lista_produtos.php">Voltar</a>
     </div>
 </body>
