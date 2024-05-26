@@ -8,7 +8,7 @@
         $valor = filter_input(INPUT_POST, 'txt_valor');
     
         if($nomeProduto && $valor) {
-            $sql = $pdo->prepare("INSERT INTO produtos (nome_produto, valor) VALUES (:nome, :valor)");
+            $sql = $conexaoComBanco->prepare("INSERT INTO produtos (nome_produto, valor) VALUES (:nome, :valor)");
             $sql -> bindValue(':nome', $nomeProduto);
             $sql -> bindValue(':valor', $valor);
             $sql -> execute();
@@ -21,9 +21,7 @@
             echo "Erro ao tentar cadastar novo produto";
             exit;
         }
-
     }
-
 
 ?>
 <!DOCTYPE html>

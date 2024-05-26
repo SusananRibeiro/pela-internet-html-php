@@ -6,9 +6,11 @@
         $usuario = $_POST['usuario'];
         $senha = $_POST['senha'];
 
-        $sql = "SELECT * FROM usuarios WHERE nome_usuario = '$usuario' AND senha = '$senha'";
-        $resultado = mysqli_query($conexao, $sql);
-        $linhas = mysqli_affected_rows($conexao);
+        $sql = $conexaoComBanco -> prepare("SELECT * FROM usuarios WHERE nome_usuario = :usuario AND senha = :senha");
+        $sql -> bindValue(':usuario', $usuario);
+        $sql -> bindValue(':senha', $senha);
+        $sql -> execute();
+        $linhas = $sql -> rowCount();
 
         if($linhas > 0) {
             $_SESSION['logado'] = true;
@@ -17,10 +19,7 @@
             $erro = 'Usuário/Senha inválido!';
         }
     } 
-
-    mysqli_close($conexao);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

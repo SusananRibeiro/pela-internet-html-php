@@ -7,7 +7,7 @@
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $pdo -> prepare("SELECT * FROM usuarios WHERE id = :id");
+        $sql = $conexaoComBanco -> prepare("SELECT * FROM usuarios WHERE id = :id");
         $sql -> bindValue(':id', $id);
         $sql -> execute();
 
@@ -30,7 +30,7 @@
 
         if($id && $nome && $senha) {
 
-            $sql = $pdo -> prepare("UPDATE usuarios SET nome_usuario = :nome, senha = :senha WHERE id = :id");
+            $sql = $conexaoComBanco -> prepare("UPDATE usuarios SET nome_usuario = :nome, senha = :senha WHERE id = :id");
             $sql -> bindValue(':nome', $nome);
             $sql -> bindValue(':senha', $senha);
             $sql -> bindValue(':id', $id);
@@ -60,7 +60,7 @@
     <div class="conteudo">
         <form name="CadastroUsuario" method="post" action="#">
             <label for="">ID:</label>
-            <input type="text" name="txt_id" value="<?= $dadosUsuario['id'];?>"/> <!-- disabled  -->
+            <input type="text" name="txt_id" value="<?= $dadosUsuario['id'];?>" readonly/> 
 
             <label for="">Nome:</label>
             <input type="text" name="txt_nome" value="<?= $dadosUsuario['nome_usuario'];?>" />
@@ -71,9 +71,7 @@
             <input type="submit" name="btn_Atualizar" value="Atualizar" />
         </form>
     </div>
-   
     <div>
-        <br>
         <a href="lista_usuarios.php">Voltar</a>
     </div>
 </body>

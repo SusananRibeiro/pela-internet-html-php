@@ -3,21 +3,19 @@
     require "conexao.php";
 
     if(isset($_POST['btn_salvarCliente'])) {
-
         $nomeCliente = filter_input(INPUT_POST, 'txt_nomeCliente');
         $telefone = filter_input(INPUT_POST, 'txt_telefone');
         $cep = filter_input(INPUT_POST, 'txt_cep');
     
         if($nomeCliente && $telefone && $cep) {
             // Ver se tem algum nome cadastrado primeiro fazer essa validação
-            $sql = $pdo -> prepare("SELECT * FROM clientes WHERE nome_cliente = :nome");
+            $sql = $conexaoComBanco -> prepare("SELECT * FROM clientes WHERE nome_cliente = :nome");
             $sql -> bindValue(':nome', $nomeCliente);
             $sql -> execute();
     
             // Ver se tem algum e-mail cadastrado
             if($sql -> rowCount() === 0) {
-
-                $sql = $pdo->prepare("INSERT INTO clientes (nome_cliente, telefone, cep) VALUES (:nome, :telefone, :cep)");
+                $sql = $conexaoComBanco->prepare("INSERT INTO clientes (nome_cliente, telefone, cep) VALUES (:nome, :telefone, :cep)");
                 $sql -> bindValue(':nome', $nomeCliente);
                 $sql -> bindValue(':telefone', $telefone);
                 $sql -> bindValue(':cep', $cep);
@@ -51,27 +49,23 @@
 </head>
 <body>
     <h1>Cadastro cliente</h1>
-    <div class="conteudo">
 
+    <div class="conteudo">
         <form name="CadastroCliente" method="post" action="cadastro_cliente.php">
             <label for="">Nome Cliente: </label><br>
-            <input type="text" name="txt_nomeCliente"><br><br>
+            <input type="text" name="txt_nomeCliente">
             
             <label for="">Telefone: </label><br>
-            <input type="text" name="txt_telefone"><br><br>  
+            <input type="text" name="txt_telefone">
 
             <label for="">CEP: </label><br>
-            <input type="text" name="txt_cep"><br><br>  
-
+            <input type="number" name="txt_cep">
 
             <input type="submit" name="btn_salvarCliente" value="Salvar">
             <input type="reset" name="btn_limparCliente" value="Limpar">
         </form>
     </div>
-
-
     <div>
-        <br>
         <a href="lista_clientes.php">Voltar</a>
     </div>
 </body>

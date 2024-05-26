@@ -7,8 +7,8 @@
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $pdo -> prepare("SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
-        FROM vendas ven INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id"); 
+        $sql = $conexaoComBanco -> prepare("SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
+        FROM vendas ven INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id WHERE ven.id = :id"); 
         $sql -> bindValue(':id', $id);
         $sql -> execute();
 
@@ -34,7 +34,7 @@
 
         if($id && $cliente && $produto && $quantidade && $total && $data) {
 
-            $sql = $pdo -> prepare("UPDATE vendas SET quantidade = :quantidade, total = :total, data = :data WHERE id = :id");
+            $sql = $conexaoComBanco -> prepare("UPDATE vendas SET quantidade = :quantidade, total = :total, data = :data WHERE id = :id");
             $sql -> bindValue(':quantidade', $quantidade);
             $sql -> bindValue(':total', $total);
             $sql -> bindValue(':data', $data);
@@ -65,13 +65,13 @@
     <div class="conteudo">
         <form name="CadastroVenda" method="post" action="#">
             <label for="">ID:</label>
-            <input type="text" name="txt_id" value="<?= $dadosVenda['id'];?>"/> <!-- disabled  -->
+            <input type="text" name="txt_id" value="<?= $dadosVenda['id'];?>" readonly/>
 
             <label for="">Cliente:</label>
-            <input type="text" name="txt_cliente" value="<?= $dadosVenda['nome_cliente'];?>" />
+            <input type="text" name="txt_cliente" value="<?= $dadosVenda['nome_cliente'];?>" readonly/>
 
             <label>Produto: </label>
-            <input type="text" name="txt_produto"  value="<?= $dadosVenda['nome_produto'];?>" />
+            <input type="text" name="txt_produto"  value="<?= $dadosVenda['nome_produto'];?>" readonly/>
 
             <label>Quantidade: </label>
             <input type="text" name="txt_quantidade"  value="<?= $dadosVenda['quantidade'];?>" />
@@ -86,7 +86,6 @@
         </form>
     </div>
     <div>
-        <br>
         <a href="lista_vendas.php">Voltar</a>
     </div>
 </body>
