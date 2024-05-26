@@ -1,5 +1,13 @@
 <?php 
     include('verificarLogin.php');
+    require "conexao.php";
+    
+    $lista = [];
+    $sql = $pdo -> query("SELECT * FROM clientes"); 
+    // Valida sem tem registro no banco de dados
+    if($sql -> rowCount() > 0) {
+        $lista = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -25,45 +33,21 @@
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th>CEP</th>
-                        <th>Editar</th>
-                        <th>Excluir</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        include "conexao.php";
-                        $contadorCliente = 1;
-                        $sql = "SELECT * FROM clientes";
-                        $resultado = mysqli_query($conexao, $sql);
-                    
-                        while($registro = mysqli_fetch_row($resultado)) {
-                            $idCliente = $registro[0];
-                            $nomeCliente = $registro[1];
-                            $telefone = $registro[2];
-                            $cep = $registro[3];
-                            $numeroParCliente = $contadorCliente % 2;
-
-                            if($numeroParCliente != 0) {
-                                echo "<tr class=cor-diferente>";
-                                echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td class=linha-cep>$cep<div class=ocultar-cep></div></td>";
-                                echo "<td><a href=edicao_cliente.php>Editar</a></td>";
-                                echo "<td><a href=excluir_cliente.php>Excluir</a></td>";
-                                echo "</tr>";
-
-                            } else {
-                                echo "<tr>";
-                                echo "<td>$idCliente</td><td>$nomeCliente</td><td>$telefone</td><td class=linha-cep>$cep<div class=ocultar-cep></div></td>";
-                                echo "<td><a href=edicao_cliente.php>Editar</a></td>";
-                                echo "<td><a href=excluir_cliente.php>Excluir</a></td>";
-                                echo "</tr>";
-                            }
-                            $contadorCliente++;
-
-                        }
-
-                        // Fechar a conexão com o bando
-                        mysqli_close($conexao);
-                    ?>
+                <?php foreach($lista as $cliente): ?>
+                        <tr>
+                            <td><?= $cliente['id']; ?></td>
+                            <td><?= $cliente['nome_cliente']; ?></td>
+                            <td><?= $cliente['telefone']; ?></td>
+                            <td><?= $cliente['cep']; ?></td>
+                            <td><a href="edicao_cliente.php?id=<?= $cliente['id']; ?>">Editar</a></td>
+                            <td><a href="excluir_cliente.php?id=<?= $cliente['id']; ?>">Excluir</a></td>                               
+                        </tr>
+                    <?php endforeach; ?>  
                 </tbody>
             </table>
         </div>    

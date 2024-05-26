@@ -1,0 +1,45 @@
+@import url(reset.css);
+
+body {
+    background-color: #eee;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ddd;
+    border-radius: 5px;
+    width: 220px;
+    padding: 25px;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input {
+    width: 200px;
+    height: 25px;
+    border: 2px solid;
+    border-radius: 3px;
+    border-color: #000 #aaa #aaa #000;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #eee;
+    width: 200px;
+    height: 25px;
+    border: 2px solid;
+    border-radius: 3px;
+    border-color:#aaa #000 #000 #aaa;
+    margin-top: 10px;
+}
+
+.erro {
+    color: red;
+    
+    margin: 10px;
+
+}

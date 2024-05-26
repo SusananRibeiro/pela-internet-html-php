@@ -1,5 +1,14 @@
 <?php 
     include('verificarLogin.php');
+    require "conexao.php";
+    
+    $lista = [];
+    $sql = $pdo -> query("SELECT * FROM produtos"); 
+    // Valida sem tem registro no banco de dados
+    if($sql -> rowCount() > 0) {
+        $lista = $sql -> fetchAll(PDO::FETCH_ASSOC);
+
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,38 +37,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        include "conexao.php";
-                        $contadorProduto = 1;
-                        $sql = "SELECT * FROM produtos";
-                        $resultado = mysqli_query($conexao, $sql);
-                    
-                        while($registro = mysqli_fetch_row($resultado)) {
-                            $idProduto = $registro[0];
-                            $nomeProduto = $registro[1];
-                            $valorProduto = str_replace(".", ",", $registro[2]);
-                            $numeroParProduto = $contadorProduto % 2;
-
-                            if($numeroParProduto != 0) {
-                                echo "<tr class=cor-diferente>";
-                                echo "<td>$idProduto</td><td id=imagem-js><img src=src/assests/images/camiseta.jpg alt=Camiseta Preta class=img>$nomeProduto</td><td>$valorProduto</td>";
-                                echo "<td><a href=edicao_produto.php>Editar</a></td>";
-                                echo "<td><a href=excluir_produto.php>Excluir</a></td>";
-                                echo "</tr>";
-                            } else {
-                                echo "<tr>";
-                                echo "<td>$idProduto</td><td id=imagem-js><img src=src/assests/images/camiseta.jpg alt=Camiseta Preta class=img>$nomeProduto</td><td>$valorProduto</td>";
-                                echo "<td><a href=edicao_produto.php>Editar</a></td>";
-                                echo "<td><a href=excluir_produto.php>Excluir</a></td>";
-                                echo "</tr>";
-                            }
-                            $contadorProduto++;
-
-                        }
-
-                        // Fechar a conexão com o bando
-                        mysqli_close($conexao);
-                    ?>
+                    <?php foreach($lista as $produto): ?>
+                        <tr>
+                            <td><?= $produto['id']; ?></td>
+                            <td><?= $produto['nome_produto']; ?></td>
+                            <td><?= $produto['valor']; ?></td>
+                            <td><a href="edicao_produto.php?id=<?= $produto['id']; ?>">Editar</a></td>
+                            <td><a href="excluir_produto.php?id=<?= $produto['id']; ?>">Excluir</a></td>                               
+                        </tr>
+                    <?php endforeach; ?>                    
                 </tbody>
             </table>
         </div>

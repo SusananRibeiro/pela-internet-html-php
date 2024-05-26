@@ -67,6 +67,7 @@ INSERT INTO vendas (quantidade, total, data, cliente_id, produto_id) VALUES (4, 
 SELECT * FROM usuarios;
 SELECT * FROM clientes;
 SELECT * FROM produtos;
+SELECT * FROM vendas;
 
 SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
 FROM vendas ven
