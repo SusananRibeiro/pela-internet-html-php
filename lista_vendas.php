@@ -1,5 +1,15 @@
 <?php 
     include('verificarLogin.php');
+
+    require "conexao.php";
+    
+    $lista = [];
+    $sql = $pdo -> query("SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
+    FROM vendas ven INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id"); 
+    // Valida sem tem registro no banco de dados
+    if($sql -> rowCount() > 0) {
+        $lista = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -29,43 +39,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        include "conexao.php";                   
-                        $contadorVenda = 1;
-                        $sql = "
-                        SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
-                        FROM vendas ven INNER JOIN clientes cli ON cli.id = ven.cliente_id 
-                        INNER JOIN produtos pro ON pro.id = ven.produto_id";
-                        $resultado = mysqli_query($conexao, $sql);
-                    
-                        while($registro = mysqli_fetch_row($resultado)) {
-                            $idVenda = $registro[0];
-                            $nomeCliente = $registro[1];
-                            $nomeProduto = $registro[2];
-                            $quantidade = $registro[3];
-                            $total = str_replace(".", ",", $registro[4]);
-                            $dataVenda = $registro[5];
-                            $dataBrasil = implode("/",array_reverse(explode("-", $dataVenda))); 
-                            $numeroParVendas = $contadorVenda % 2;
-
-                            if($numeroParVendas != 0) {
-                                echo "<tr class=cor-diferente>";
-                                echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
-                                echo "<td><a href=edicao_venda.php>Editar</a></td>";
-                                echo "<td><a href=excluir_venda.php>Excluir</a></td>";
-                                echo "</tr>";
-                            } else {
-                                echo "<tr>";
-                                echo "<td>$idVenda</td><td>$nomeCliente</td><td>$nomeProduto</td><td>$quantidade</td><td>$total</td><td>$dataBrasil</td>";
-                                echo "<td><a href=edicao_venda.php>Editar</a></td>";
-                                echo "<td><a href=excluir_venda.php>Excluir</a></td>";
-                                echo "</tr>";
-                            }
-                            $contadorVenda++;
-
-                        }
-                        mysqli_close($conexao);
-                    ?>
+                <?php foreach($lista as $venda): ?>
+                        <tr>
+                            <td><?= $venda['id']; ?></td>
+                            <td><?= $venda['nome_cliente']; ?></td>
+                            <td><?= $venda['nome_produto']; ?></td>
+                            <td><?= $venda['quantidade']; ?></td>
+                            <td><?= $venda['total']; ?></td>
+                            <td><?= $venda['data']; ?></td>
+                            <td><a href="edicao_venda.php?id=<?= $venda['id']; ?>">Editar</a></td>
+                            <td><a href="excluir_venda.php?id=<?= $venda['id']; ?>">Excluir</a></td>                               
+                        </tr>
+                    <?php endforeach; ?>  
                 </tbody>
             </table>
         </div>    

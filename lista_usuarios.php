@@ -1,30 +1,13 @@
 <?php 
     include('verificarLogin.php');
+    require "conexao.php";
+    $lista = [];
+    $sql = $pdo -> query("SELECT * FROM usuarios"); 
+    // Valida sem tem registro no banco de dados
+    if($sql -> rowCount() > 0) {
+        $lista = $sql -> fetchAll(PDO::FETCH_ASSOC);
 
-    // include "conexao.php"
-
-    // if(isset($_POST["btn_Excluir"])) {
-    //     $registros = [];
-    
-    //     if($_GET['excluir']) {
-    //         $excluirSQL = "DELETE FROM usuarios WHERE id = ?";
-    //         $stmt = $conexao->prepare($excluirSQL); // statement
-    //         $stmt->bind_param("i", $_GET['excluir']); // "i" é o tipo do parâmetro, neste caso inteiro
-    //         $stmt->execute();
-    //     }
-    
-    //     // Para criar a tabela HTML
-    //     $sql = "SELECT id, nome_usuario, senha FROM usuarios";
-    //     $resultado = $conexao->query($sql);
-    //     if($resultado->num_rows > 0) {
-    //         while($row = $resultado->fetch_assoc()) {
-    //             $registros[] = $row;
-    //         }
-    //     } elseif($conexao->error) {
-    //         echo "Erro: " . $conexao->error;   
-    //     }
-
-    // }
+    }
 
 
 ?>
@@ -41,7 +24,9 @@
 </head>
 <body>
     <main class="container">
+
         <a href="cadastro_usuario.php">Novo</a>
+
         <h1>Lista de Usuários</h1>
         <div class="container-table">
             <table>
@@ -55,39 +40,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        include "conexao.php";
-                        $contadorUsuario = 1;
-                        $sql = "SELECT * FROM usuarios";
-                        $resultado = mysqli_query($conexao, $sql);
-                    
-                        while($registro = mysqli_fetch_row($resultado)) {
-                            $idUsuario = $registro[0];
-                            $nomeUsuario = $registro[1];
-                            $senhaUsuario = $registro[2];
-                            $numeroParUsuario = $contadorUsuario % 2;
-                            
-                            if($numeroParUsuario != 0) {
-                                echo "<tr class=cor-diferente>";
-                                echo "<td>$idUsuario</td><td>$nomeUsuario</td><td>$senhaUsuario</td>";
-                                echo "<td><a href=edicao_usuario.php>Editar</a></td>";
-                                echo "<td><a href=excluir_cliente.php name=btn_Excluir>Excluir</a></td>";
-                                echo "</tr>";
-
-                            } else {
-                                echo "<tr>";
-                                echo "<td>$idUsuario</td><td>$nomeUsuario</td><td>$senhaUsuario</td>";
-                                echo "<td><a href=edicao_usuario.php>Editar</a></td>";
-                                echo "<td><a href=excluir_usuario.php name=btn_Excluir>Excluir</a></td>";
-                                echo "</tr>";
-                            }
-                            $contadorUsuario++;                           
-
-                        }
-
-                        // Fechar a conexão com o bando
-                        mysqli_close($conexao);
-                    ?>
+                    <?php foreach($lista as $usuario): ?>
+                        <tr>
+                            <td><?= $usuario['id']; ?></td>
+                            <td><?= $usuario['nome_usuario']; ?></td>
+                            <td><?= $usuario['senha']; ?></td>
+                            <td><a href="edicao_usuario.php?id=<?= $usuario['id']; ?>">Editar</a></td>
+                            <td><a href="excluir_usuario.php?id=<?= $usuario['id']; ?>">Excluir</a></td>                               
+                        </tr>
+                    <?php endforeach; ?> 
                 </tbody>
             </table>
         </div>    

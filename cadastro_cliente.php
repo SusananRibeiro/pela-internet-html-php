@@ -1,24 +1,43 @@
 <?php 
-    include "conexao.php";
+    include('verificarLogin.php');
+    require "conexao.php";
 
-    if(isset($_POST["btn_salvarCliente"])) {
-        $nomeCliente = $_POST["campo_nomeCliente"]; 
-        $telefone = $_POST["campo_telefone"]; 
-        $cep = $_POST["campo_cep"]; 
+    if(isset($_POST['btn_salvarCliente'])) {
 
-        $sqlCliente = "INSERT INTO clientes (nome_cliente, telefone, cep) VALUES ('$nomeCliente', '$telefone', $cep)";
-        $resultadoCliente = mysqli_query($conexao, $sqlCliente);
-        $linhasCliente = mysqli_affected_rows($conexao);
-
-        if($linhasCliente == 1) {
-            echo "Cliente salvo com sucesso!<br/>";
-
-        } else {
-            echo "Erro ao salvar o cliente<br/>";
-        }
-    }
+        $nomeCliente = filter_input(INPUT_POST, 'txt_nomeCliente');
+        $telefone = filter_input(INPUT_POST, 'txt_telefone');
+        $cep = filter_input(INPUT_POST, 'txt_cep');
     
-    mysqli_close($conexao);
+        if($nomeCliente && $telefone && $cep) {
+            // Ver se tem algum nome cadastrado primeiro fazer essa validação
+            $sql = $pdo -> prepare("SELECT * FROM clientes WHERE nome_cliente = :nome");
+            $sql -> bindValue(':nome', $nomeCliente);
+            $sql -> execute();
+    
+            // Ver se tem algum e-mail cadastrado
+            if($sql -> rowCount() === 0) {
+
+                $sql = $pdo->prepare("INSERT INTO clientes (nome_cliente, telefone, cep) VALUES (:nome, :telefone, :cep)");
+                $sql -> bindValue(':nome', $nomeCliente);
+                $sql -> bindValue(':telefone', $telefone);
+                $sql -> bindValue(':cep', $cep);
+                $sql -> execute();
+    
+                // Voltar para a página a lista
+                header("Location: lista_clientes.php");
+                exit; // para sair do IF
+    
+            } else {
+                echo "Nome do cliente já existe";
+            }
+     
+        } else {
+            echo "Erro ao tentar cadastar cliente";
+            exit;
+        }
+
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,25 +46,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="assests/images/home.ico">
+    <link rel="stylesheet" href="src/styles/cadastro_style.css">
     <title>Novo Cliente</title>
 </head>
 <body>
     <h1>Cadastro cliente</h1>
+    <div class="conteudo">
 
-    <form name="CadastroCliente" method="post" action="#">
-        <label for="">Nome Cliente: </label><br>
-        <input type="text" name="campo_nomeCliente"><br><br>
-        
-        <label for="">Telefone: </label><br>
-        <input type="text" name="campo_telefone"><br><br>  
+        <form name="CadastroCliente" method="post" action="cadastro_cliente.php">
+            <label for="">Nome Cliente: </label><br>
+            <input type="text" name="txt_nomeCliente"><br><br>
+            
+            <label for="">Telefone: </label><br>
+            <input type="text" name="txt_telefone"><br><br>  
 
-        <label for="">CEP: </label><br>
-        <input type="text" name="campo_cep"><br><br>  
+            <label for="">CEP: </label><br>
+            <input type="text" name="txt_cep"><br><br>  
 
 
-        <input type="submit" name="btn_salvarCliente" value="Salvar">
-        <input type="reset" name="btn_limparCliente" value="Limpar">
-    </form>
+            <input type="submit" name="btn_salvarCliente" value="Salvar">
+            <input type="reset" name="btn_limparCliente" value="Limpar">
+        </form>
+    </div>
+
 
     <div>
         <br>

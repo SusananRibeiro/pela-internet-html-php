@@ -1,24 +1,30 @@
 <?php 
-    include "conexao.php";
+    include('verificarLogin.php');
+    require "conexao.php";
 
-    if(isset($_POST["btn_salvarProduto"])) {
-        $nomeProduto = $_POST["campo_nomeProduto"]; 
-        $valorDoProduto = str_replace(",", ".", $_POST["campo_valor"]); 
+    if(isset($_POST['btn_salvarProduto'])) {
+
+        $nomeProduto = filter_input(INPUT_POST, 'txt_nomeProduto');
+        $valor = filter_input(INPUT_POST, 'txt_valor');
     
-        $sqlProduto = "INSERT INTO produtos (nome_produto, valor) VALUES ('$nomeProduto', $valorDoProduto)";
-        $resultadoProduto = mysqli_query($conexao, $sqlProduto);
-        $linhasProdutos = mysqli_affected_rows($conexao);
-    
-        if($linhasProdutos == 1) {
-            echo "Produto salvo com sucesso!<br/>";
-    
+        if($nomeProduto && $valor) {
+            $sql = $pdo->prepare("INSERT INTO produtos (nome_produto, valor) VALUES (:nome, :valor)");
+            $sql -> bindValue(':nome', $nomeProduto);
+            $sql -> bindValue(':valor', $valor);
+            $sql -> execute();
+
+            // Voltar para a página a lista
+            header("Location: lista_produtos.php");
+            exit; // para sair do IF
+     
         } else {
-            echo "Erro ao salvar o produto<br/>";
+            echo "Erro ao tentar cadastar novo produto";
+            exit;
         }
 
     }
 
-    mysqli_close($conexao);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,6 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="assests/images/home.ico">
+    <link rel="stylesheet" href="src/styles/cadastro_style.css">
     <title>Novo Produto</title>
 </head>
 <body>
@@ -35,10 +42,10 @@
 
     <form name="CadastroProduto" method="post" action="#">
         <label for="">Nome Produto: </label><br>
-        <input type="text" name="campo_nomeProduto"><br><br>
+        <input type="text" name="txt_nomeProduto"><br><br>
         
         <label for="">Valor: </label><br>
-        <input type="text" name="campo_valor"><br><br>  
+        <input type="text" name="txt_valor"><br><br>  
 
         <input type="submit" name="btn_salvarProduto" value="Salvar">
         <input type="reset" name="btn_limparProduto" value="Limpar">
