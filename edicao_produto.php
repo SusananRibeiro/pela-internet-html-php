@@ -1,6 +1,6 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
 
 
     // GET
@@ -8,12 +8,13 @@
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $conexaoComBanco-> prepare("SELECT * FROM produtos WHERE id = :id");
-        $sql -> bindValue(':id', $id);
-        $sql -> execute();
+        $sql = "SELECT * FROM produtos WHERE id = :id";
+        $statement = $conexaoComBanco-> prepare($sql);
+        $statement -> bindValue(':id', $id);
+        $statement -> execute();
 
-        if($sql -> rowCount() > 0) {
-            $dadosProduto = $sql -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
+        if($statement -> rowCount() > 0) {
+            $dadosProduto = $statement -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
         } else  {
             header('Location: index.php');
             exit;
@@ -30,12 +31,12 @@
         $valor = filter_input(INPUT_POST, 'txt_valor');
 
         if($id && $nome && $valor) {
-
-            $sql = $conexaoComBanco -> prepare("UPDATE produtos SET nome_produto = :nome, valor = :valor WHERE id = :id");
-            $sql -> bindValue(':nome', $nome);
-            $sql -> bindValue(':valor', $valor);
-            $sql -> bindValue(':id', $id);
-            $sql -> execute();
+            $sql = "UPDATE produtos SET nome_produto = :nome, valor = :valor WHERE id = :id";
+            $statement = $conexaoComBanco -> prepare($sql);
+            $statement -> bindValue(':nome', $nome);
+            $statement -> bindValue(':valor', $valor);
+            $statement -> bindValue(':id', $id);
+            $statement -> execute();
 
             header("Location: lista_produtos.php");
             // echo "Produto atualizado com sucesso!<br/>";

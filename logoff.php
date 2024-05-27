@@ -1,5 +1,5 @@
 <?php 
-    include('verificarLogin.php');
+    require_once('verificarLogin.php');
     session_destroy(); // vai destruir a sessão
 ?>
 

@@ -1,18 +1,19 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
 
     // GET
     $dadosUsuario = [];
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $conexaoComBanco -> prepare("SELECT * FROM usuarios WHERE id = :id");
-        $sql -> bindValue(':id', $id);
-        $sql -> execute();
+        $sql = "SELECT * FROM usuarios WHERE id = :id";
+        $statement = $conexaoComBanco -> prepare($sql);
+        $statement -> bindValue(':id', $id);
+        $statement -> execute();
 
-        if($sql -> rowCount() > 0) {
-            $dadosUsuario = $sql -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
+        if($statement -> rowCount() > 0) {
+            $dadosUsuario = $statement -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
         } else  {
             header('Location: lista_usuarios.php');
             exit;
@@ -29,12 +30,12 @@
         $senha = filter_input(INPUT_POST, 'txt_senha');
 
         if($id && $nome && $senha) {
-
-            $sql = $conexaoComBanco -> prepare("UPDATE usuarios SET nome_usuario = :nome, senha = :senha WHERE id = :id");
-            $sql -> bindValue(':nome', $nome);
-            $sql -> bindValue(':senha', $senha);
-            $sql -> bindValue(':id', $id);
-            $sql -> execute();
+            $sql = "UPDATE usuarios SET nome_usuario = :nome, senha = :senha WHERE id = :id";
+            $statement = $conexaoComBanco -> prepare($sql);
+            $statement -> bindValue(':nome', $nome);
+            $statement -> bindValue(':senha', $senha);
+            $statement-> bindValue(':id', $id);
+            $statement-> execute();
 
             header("Location: lista_usuarios.php");
             // echo "Usuário atualizado com sucesso!<br/>";
@@ -55,7 +56,6 @@
     <link rel="stylesheet" href="src/styles/edicao_style.css">
 </head>
 <body>
-
     <h1>Editar Usuário</h1>
     <div class="conteudo">
         <form name="CadastroUsuario" method="post" action="#">

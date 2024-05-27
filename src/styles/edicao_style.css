@@ -7,13 +7,6 @@ body {
 .conteudo {
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
-    background-color: #ddd;
-    border-radius: 5px;
-    width: 220px;
-    padding: 25px;
-    margin-top: 150px;
 }
 
 input {
@@ -37,7 +30,5 @@ button {
 
 .erro {
     color: red;
-    
     margin: 10px;
-
 }
