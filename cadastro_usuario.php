@@ -1,6 +1,6 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
     
     if(isset($_POST['btn_salvarUsuario'])) {
         // $hashMD5 = md5($senhaDoUsuario);
@@ -11,16 +11,18 @@
 
         if($nomeUsuario && $senha) {
         // Ver se tem algum nome cadastrado primeiro fazer essa validação
-        $sql = $conexaoComBanco -> prepare("SELECT * FROM usuarios WHERE nome_usuario = :nome");
-        $sql -> bindValue(':nome', $nomeUsuario);
-        $sql -> execute();
+        $sql = "SELECT * FROM usuarios WHERE nome_usuario = :nome";
+        $statement = $conexaoComBanco -> prepare($sql);
+        $statement -> bindValue(':nome', $nomeUsuario);
+        $statement -> execute();
 
-            // Ver se tem algum e-mail cadastrado
-            if($sql -> rowCount() === 0) {
-                $sql = $conexaoComBanco->prepare("INSERT INTO usuarios (nome_usuario, senha) VALUES (:nome, :senha)");
-                $sql -> bindValue(':nome', $nomeUsuario);
-                $sql -> bindValue(':senha', $senha);
-                $sql -> execute();
+            // Ver se tem algum nome cadastrado
+            if($statement -> rowCount() === 0) {
+                $sql = "INSERT INTO usuarios (nome_usuario, senha) VALUES (:nome, :senha)";
+                $statement = $conexaoComBanco->prepare($sql);
+                $statement -> bindValue(':nome', $nomeUsuario);
+                $statement -> bindValue(':senha', $senha);
+                $statement -> execute();
                 header("Location: lista_usuarios.php");
                 exit; // para sair do IF
 

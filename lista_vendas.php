@@ -1,14 +1,14 @@
 <?php 
-    include('verificarLogin.php');
-
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
     
     $lista = [];
-    $sql = $conexaoComBanco -> query("SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
-    FROM vendas ven INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id"); 
+    $sql = "SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data FROM vendas ven 
+            INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id";
+    $statement = $conexaoComBanco -> query($sql); 
     // Valida sem tem registro no banco de dados
-    if($sql -> rowCount() > 0) {
-        $lista = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    if($statement -> rowCount() > 0) {
+        $lista = $statement -> fetchAll(PDO::FETCH_ASSOC);
     }
 ?>
 <!DOCTYPE html>

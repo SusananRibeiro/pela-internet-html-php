@@ -1,18 +1,19 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
 
     // GET
     $dadosCliente = [];
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $conexaoComBanco -> prepare("SELECT * FROM clientes WHERE id = :id");
-        $sql -> bindValue(':id', $id);
-        $sql -> execute();
+        $sql = "SELECT * FROM clientes WHERE id = :id";
+        $statement = $conexaoComBanco -> prepare($sql);
+        $statement -> bindValue(':id', $id);
+        $statement -> execute();
 
-        if($sql -> rowCount() > 0) {
-            $dadosCliente = $sql -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
+        if($statement -> rowCount() > 0) {
+            $dadosCliente = $statement -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
         } else  {
             header('Location: index.php');
             exit;
@@ -30,16 +31,15 @@
         $cep = filter_input(INPUT_POST, 'txt_cep');
 
         if($id && $nome && $telefone && $cep) {
-
-            $sql = $conexaoComBanco -> prepare("UPDATE clientes SET nome_cliente = :nome, telefone = :telefone, cep = :cep WHERE id = :id");
-            $sql -> bindValue(':nome', $nome);
-            $sql -> bindValue(':telefone', $telefone);
-            $sql -> bindValue(':cep', $cep);
-            $sql -> bindValue(':id', $id);
-            $sql -> execute();
+            $sql = "UPDATE clientes SET nome_cliente = :nome, telefone = :telefone, cep = :cep WHERE id = :id";
+            $statement = $conexaoComBanco -> prepare($sql);
+            $statement -> bindValue(':nome', $nome);
+            $statement -> bindValue(':telefone', $telefone);
+            $statement -> bindValue(':cep', $cep);
+            $statement -> bindValue(':id', $id);
+            $statement-> execute();
 
             header("Location: lista_clientes.php");
-            // echo "Cliente atualizado com sucesso!<br/>";
             exit;
 
         } else {

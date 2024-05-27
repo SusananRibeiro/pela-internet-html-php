@@ -1,19 +1,20 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
 
     // GET
     $dadosVenda = [];
     $id = filter_input(INPUT_GET, 'id'); // "'id'" é o nome da variável da URL
 
     if($id) {
-        $sql = $conexaoComBanco -> prepare("SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
-        FROM vendas ven INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id WHERE ven.id = :id"); 
-        $sql -> bindValue(':id', $id);
-        $sql -> execute();
+        $sql = "SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data FROM vendas ven 
+                INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id WHERE ven.id = :id";
+        $statement = $conexaoComBanco -> prepare($sql); 
+        $statement -> bindValue(':id', $id);
+        $statement -> execute();
 
-        if($sql -> rowCount() > 0) {
-            $dadosVenda = $sql -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
+        if($statement -> rowCount() > 0) {
+            $dadosVenda = $statement -> fetch(PDO::FETCH_ASSOC); // "fetch()" para mapiar as informações separadamente
         } else  {
             header('Location: index.php');
             exit;
@@ -33,13 +34,13 @@
         $data = filter_input(INPUT_POST, 'txt_data');
 
         if($id && $cliente && $produto && $quantidade && $total && $data) {
-
-            $sql = $conexaoComBanco -> prepare("UPDATE vendas SET quantidade = :quantidade, total = :total, data = :data WHERE id = :id");
-            $sql -> bindValue(':quantidade', $quantidade);
-            $sql -> bindValue(':total', $total);
-            $sql -> bindValue(':data', $data);
-            $sql -> bindValue(':id', $id);
-            $sql -> execute();
+            $sql = "UPDATE vendas SET quantidade = :quantidade, total = :total, data = :data WHERE id = :id";
+            $statement = $conexaoComBanco -> prepare($sql);
+            $statement -> bindValue(':quantidade', $quantidade);
+            $statement -> bindValue(':total', $total);
+            $statement -> bindValue(':data', $data);
+            $statement -> bindValue(':id', $id);
+            $statement -> execute();
 
             header("Location: lista_vendas.php");
             // echo "Venda atualizado com sucesso!<br/>";

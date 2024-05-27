@@ -1,6 +1,6 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
 
     if(isset($_POST['btn_salvarProduto'])) {
 
@@ -8,10 +8,11 @@
         $valor = filter_input(INPUT_POST, 'txt_valor');
     
         if($nomeProduto && $valor) {
-            $sql = $conexaoComBanco->prepare("INSERT INTO produtos (nome_produto, valor) VALUES (:nome, :valor)");
-            $sql -> bindValue(':nome', $nomeProduto);
-            $sql -> bindValue(':valor', $valor);
-            $sql -> execute();
+            $sql = "INSERT INTO produtos (nome_produto, valor) VALUES (:nome, :valor)";
+            $statement = $conexaoComBanco->prepare($sql);
+            $statement -> bindValue(':nome', $nomeProduto);
+            $statement -> bindValue(':valor', $valor);
+            $statement -> execute();
 
             // Voltar para a página a lista
             header("Location: lista_produtos.php");

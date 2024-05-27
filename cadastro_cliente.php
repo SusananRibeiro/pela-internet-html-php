@@ -1,6 +1,6 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
+    require_once('verificarLogin.php');
+    require('conexao.php');
 
     if(isset($_POST['btn_salvarCliente'])) {
         $nomeCliente = filter_input(INPUT_POST, 'txt_nomeCliente');
@@ -9,17 +9,19 @@
     
         if($nomeCliente && $telefone && $cep) {
             // Ver se tem algum nome cadastrado primeiro fazer essa validação
-            $sql = $conexaoComBanco -> prepare("SELECT * FROM clientes WHERE nome_cliente = :nome");
-            $sql -> bindValue(':nome', $nomeCliente);
-            $sql -> execute();
+            $sql = "SELECT * FROM clientes WHERE nome_cliente = :nome";
+            $statement = $conexaoComBanco -> prepare($sql);
+            $statement -> bindValue(':nome', $nomeCliente);
+            $statement -> execute();
     
             // Ver se tem algum e-mail cadastrado
-            if($sql -> rowCount() === 0) {
-                $sql = $conexaoComBanco->prepare("INSERT INTO clientes (nome_cliente, telefone, cep) VALUES (:nome, :telefone, :cep)");
-                $sql -> bindValue(':nome', $nomeCliente);
-                $sql -> bindValue(':telefone', $telefone);
-                $sql -> bindValue(':cep', $cep);
-                $sql -> execute();
+            if($statement-> rowCount() === 0) {
+                $sql = "INSERT INTO clientes (nome_cliente, telefone, cep) VALUES (:nome, :telefone, :cep)";
+                $statement = $conexaoComBanco->prepare($sql);
+                $statement -> bindValue(':nome', $nomeCliente);
+                $statement -> bindValue(':telefone', $telefone);
+                $statement -> bindValue(':cep', $cep);
+                $statement -> execute();
     
                 // Voltar para a página a lista
                 header("Location: lista_clientes.php");

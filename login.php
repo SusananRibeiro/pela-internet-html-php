@@ -1,5 +1,5 @@
 <?php 
-    include "conexao.php";
+    require('conexao.php');
     session_start();
 
     if(isset($_POST['btn_acessar'])) {

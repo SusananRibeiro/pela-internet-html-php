@@ -1,12 +1,13 @@
 <?php 
-    include('verificarLogin.php');
-    require "conexao.php";
-    $lista = [];
-    $sql = $conexaoComBanco -> query("SELECT * FROM usuarios"); 
-    // Valida sem tem registro no banco de dados
-    if($sql -> rowCount() > 0) {
-        $lista = $sql -> fetchAll(PDO::FETCH_ASSOC);
+    require_once('verificarLogin.php');
+    require('conexao.php');
 
+    $lista = [];
+    $sql = "SELECT * FROM usuarios";
+    $statement = $conexaoComBanco -> query($sql); 
+    // Valida sem tem registro no banco de dados
+    if($statement -> rowCount() > 0) {
+        $lista = $statement -> fetchAll(PDO::FETCH_ASSOC);
     }
 
 

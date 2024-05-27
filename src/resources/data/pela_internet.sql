@@ -74,8 +74,11 @@ FROM vendas ven
 INNER JOIN clientes cli ON cli.id = ven.cliente_id
 INNER JOIN produtos pro ON pro.id = ven.produto_id;
 
-
-
+SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
+FROM vendas ven
+INNER JOIN clientes cli ON cli.id = ven.cliente_id
+INNER JOIN produtos pro ON pro.id = ven.produto_id
+WHERE ven.id = 1;
 
 -- Excluir Tabelas
 /*
