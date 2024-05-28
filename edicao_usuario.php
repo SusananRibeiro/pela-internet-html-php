@@ -26,13 +26,17 @@
     if(isset($_POST['btn_Atualizar'])) {
         $dadosUsuario = [];
         $id = filter_input(INPUT_POST, 'txt_id'); 
-        $nome = filter_input(INPUT_POST, 'txt_nome');
+        $nomeUsuario = filter_input(INPUT_POST, 'txt_nome');
         $senha = filter_input(INPUT_POST, 'txt_senha');
 
-        if($id && $nome && $senha) {
+        if(empty($nomeUsuario)) {
+            echo "<div class=erro>Nome do usuário é obrigatório</div>";
+        } else if(empty($senha)) {
+            echo "<div class=erro>Senha do usuário é obrigatório</div>";
+        } else if($id && $nomeUsuario && $senha) {
             $sql = "UPDATE usuarios SET nome_usuario = :nome, senha = :senha WHERE id = :id";
             $statement = $conexaoComBanco -> prepare($sql);
-            $statement -> bindValue(':nome', $nome);
+            $statement -> bindValue(':nome', $nomeUsuario);
             $statement -> bindValue(':senha', $senha);
             $statement-> bindValue(':id', $id);
             $statement-> execute();
@@ -42,7 +46,7 @@
             exit;
 
         } else {
-            echo "Erro ao atualizar usuário!<br/>";
+            echo "<div class=erro>Erro ao atualizar usuário!</div>";
             exit;
         }
     }
@@ -59,15 +63,18 @@
     <h1>Editar Usuário</h1>
     <div class="conteudo">
         <form name="CadastroUsuario" method="post" action="#">
-            <label for="">ID:</label>
-            <input type="text" name="txt_id" value="<?= $dadosUsuario['id'];?>" readonly/> 
-
-            <label for="">Nome:</label>
-            <input type="text" name="txt_nome" value="<?= $dadosUsuario['nome_usuario'];?>" />
-
-            <label>Senha: </label>
-            <input type="text" name="txt_senha"  value="<?= $dadosUsuario['senha'];?>" />
-
+            <div>
+                <label for="">ID:</label><br>
+                <input type="text" name="txt_id" value="<?= $dadosUsuario['id'];?>" readonly/> 
+            </div>
+            <div>
+                <label for="">Nome:</label><br>
+                <input type="text" name="txt_nome" value="<?= $dadosUsuario['nome_usuario'];?>" />
+            </div>
+            <div>
+                <label>Senha: </label><br>
+                <input type="text" name="txt_senha"  value="<?= $dadosUsuario['senha'];?>" />
+            </div>
             <input type="submit" name="btn_Atualizar" value="Atualizar" />
         </form>
     </div>

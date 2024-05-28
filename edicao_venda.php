@@ -20,7 +20,7 @@
             exit;
         }
     } else {
-        echo "ID inválido";
+        echo "<div class=erro>ID inválido</div>";
     }
 
     // POST 
@@ -33,7 +33,13 @@
         $total = filter_input(INPUT_POST, 'txt_total');
         $data = filter_input(INPUT_POST, 'txt_data');
 
-        if($id && $cliente && $produto && $quantidade && $total && $data) {
+        if(empty($quantidade)) {
+            echo "<div class=erro>Quantidade da venda é obrigatório</div>";
+        } else if(empty($total)) {
+            echo "<div class=erro>Total da venda é obrigatório</div>";
+        } else if(empty($data)) {
+            echo "<div class=erro>Data da venda é obrigatório</div>";
+        } else if($id && $cliente && $produto && $quantidade && $total && $data) {
             $sql = "UPDATE vendas SET quantidade = :quantidade, total = :total, data = :data WHERE id = :id";
             $statement = $conexaoComBanco -> prepare($sql);
             $statement -> bindValue(':quantidade', $quantidade);
@@ -47,7 +53,7 @@
             exit;
 
         } else {
-            echo "Erro ao atualizar venda!<br/>";
+            echo "<div class=erro>Erro ao atualizar venda!</div>";
             exit;
         }
     }
@@ -65,24 +71,31 @@
     <h1>Editar Venda</h1>
     <div class="conteudo">
         <form name="CadastroVenda" method="post" action="#">
-            <label for="">ID:</label>
-            <input type="text" name="txt_id" value="<?= $dadosVenda['id'];?>" readonly/>
+            <div>
+                <label for="">ID:</label><br>
+                <input type="text" name="txt_id" value="<?= $dadosVenda['id'];?>" readonly/>
+            </div>
+            <div>
+                <label for="">Cliente:</label><br>
+                <input type="text" name="txt_cliente" value="<?= $dadosVenda['nome_cliente'];?>" readonly/>
+            </div>
+            <div>
+                <label>Produto: </label><br>
+                <input type="text" name="txt_produto"  value="<?= $dadosVenda['nome_produto'];?>" readonly/>
+            </div>
+            <div>
+                <label>Quantidade: </label><br>
+                <input type="text" name="txt_quantidade"  value="<?= $dadosVenda['quantidade'];?>" />
+            </div>
 
-            <label for="">Cliente:</label>
-            <input type="text" name="txt_cliente" value="<?= $dadosVenda['nome_cliente'];?>" readonly/>
-
-            <label>Produto: </label>
-            <input type="text" name="txt_produto"  value="<?= $dadosVenda['nome_produto'];?>" readonly/>
-
-            <label>Quantidade: </label>
-            <input type="text" name="txt_quantidade"  value="<?= $dadosVenda['quantidade'];?>" />
-
-            <label>Total: </label>
-            <input type="text" name="txt_total"  value="<?= $dadosVenda['total'];?>" />
-
-            <label>Data: </label>
-            <input type="text" name="txt_data"  value="<?= $dadosVenda['data'];?>" />
-
+            <div>
+                <label>Total: </label><br>
+                <input type="text" name="txt_total"  value="<?= $dadosVenda['total'];?>" />
+            </div>
+            <div>
+                <label>Data: </label><br>
+                <input type="text" name="txt_data"  value="<?= $dadosVenda['data'];?>" />
+            </div>
             <input type="submit" name="btn_Atualizar" value="Atualizar" />
         </form>
     </div>
