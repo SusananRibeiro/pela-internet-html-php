@@ -27,13 +27,17 @@
     if(isset($_POST['btn_Atualizar'])) {
         $dadosProduto = [];
         $id = filter_input(INPUT_POST, 'txt_id'); 
-        $nome = filter_input(INPUT_POST, 'txt_nome');
+        $nomeProduto = filter_input(INPUT_POST, 'txt_nome');
         $valor = filter_input(INPUT_POST, 'txt_valor');
 
-        if($id && $nome && $valor) {
+        if(empty($nomeProduto)) {
+            echo "<div class=erro>Nome do produto é obrigatório</div>";
+        } else if(empty($valor)) {
+            echo "<div class=erro>Valor do produto é obrigatório</div>";
+        } else if($id && $nomeProduto && $valor) {
             $sql = "UPDATE produtos SET nome_produto = :nome, valor = :valor WHERE id = :id";
             $statement = $conexaoComBanco -> prepare($sql);
-            $statement -> bindValue(':nome', $nome);
+            $statement -> bindValue(':nome', $nomeProduto);
             $statement -> bindValue(':valor', $valor);
             $statement -> bindValue(':id', $id);
             $statement -> execute();
@@ -43,7 +47,7 @@
             exit;
 
         } else {
-            echo "Erro ao atualizar produto!<br/>";
+            echo "<div class=erro>Erro ao atualizar produto!</div>";
             exit;
         }
     }
@@ -57,19 +61,21 @@
     <link rel="stylesheet" href="src/styles/edicao_style.css">
 </head>
 <body>
-
     <h1>Editar Produto</h1>
     <div class="conteudo">
         <form name="CadastroProduto" method="post" action="#">
-            <label for="">ID:</label>
-            <input type="text" name="txt_id" value="<?= $dadosProduto['id']; ?>" readonly/> 
-
-            <label for="">Nome do produto:</label>
-            <input type="text" name="txt_nome" value="<?= $dadosProduto['nome_produto']; ?>" />
-
-            <label>Valor: </label>
-            <input type="text" name="txt_valor"  value="<?= $dadosProduto['valor']; ?>" />
-
+            <div>
+                <label for="">ID:</label><br>
+                <input type="text" name="txt_id" value="<?= $dadosProduto['id']; ?>" readonly/> 
+            </div>
+            <div>
+                <label for="">Nome do produto:</label><br>
+                <input type="text" name="txt_nome" value="<?= $dadosProduto['nome_produto']; ?>" />
+            </div>
+            <div>
+                <label>Valor: </label><br>
+                <input type="text" name="txt_valor"  value="<?= $dadosProduto['valor']; ?>" />
+            </div>
             <input type="submit" name="btn_Atualizar" value="Atualizar" />
         </form>
     </div>

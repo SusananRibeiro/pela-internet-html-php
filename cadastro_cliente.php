@@ -7,7 +7,13 @@
         $telefone = filter_input(INPUT_POST, 'txt_telefone');
         $cep = filter_input(INPUT_POST, 'txt_cep');
     
-        if($nomeCliente && $telefone && $cep) {
+        if(empty($nomeCliente)) {
+            echo "<div class=erro>Nome do cliente é obrigatório</div>";
+        } else if(empty($telefone)) {
+            echo "<div class=erro>Telefone do cliente é obrigatório</div>";
+        } else if(empty($cep)) {
+            echo "<div class=erro>CEP do cliente é obrigatório</div>";
+        } else if($nomeCliente && $telefone && $cep) {
             // Ver se tem algum nome cadastrado primeiro fazer essa validação
             $sql = "SELECT * FROM clientes WHERE nome_cliente = :nome";
             $statement = $conexaoComBanco -> prepare($sql);
@@ -28,14 +34,13 @@
                 exit; // para sair do IF
     
             } else {
-                echo "Nome do cliente já existe";
+                echo "<div class=erro>Nome do cliente já cadastrado.</div>";
             }
      
         } else {
-            echo "Erro ao tentar cadastar cliente";
+            echo "<div class=erro>Erro ao tentar cadastar cliente.</div>";
             exit;
         }
-
     }
 
 ?>
@@ -54,17 +59,22 @@
 
     <div class="conteudo">
         <form name="CadastroCliente" method="post" action="cadastro_cliente.php">
-            <label for="">Nome Cliente: </label><br>
-            <input type="text" name="txt_nomeCliente">
-            
-            <label for="">Telefone: </label><br>
-            <input type="text" name="txt_telefone">
-
-            <label for="">CEP: </label><br>
-            <input type="number" name="txt_cep">
-
-            <input type="submit" name="btn_salvarCliente" value="Salvar">
-            <input type="reset" name="btn_limparCliente" value="Limpar">
+            <div>
+                <label for="">Nome Cliente: </label><br>
+                <input type="text" name="txt_nomeCliente">
+            </div>
+            <div>
+                <label for="">Telefone: </label><br>
+                <input type="text" name="txt_telefone">
+            </div>
+            <div>
+                <label for="">CEP: </label><br>
+                <input type="number" name="txt_cep">
+            </div>
+            <div>
+                <input type="submit" name="btn_salvarCliente" value="Salvar">
+                <input type="reset" name="btn_limparCliente" value="Limpar">
+            </div>
         </form>
     </div>
     <div>

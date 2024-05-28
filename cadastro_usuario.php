@@ -9,7 +9,11 @@
         $nomeUsuario = filter_input(INPUT_POST, 'txt_usuario');
         $senha = filter_input(INPUT_POST, 'txt_senha');
 
-        if($nomeUsuario && $senha) {
+        if(empty($nomeUsuario)) {
+            echo "<div class=erro>Nome do usuário é obrigatório</div>";
+        } else if(empty($senha)) {
+            echo "<div class=erro>Senha do usuário é obrigatório</div>";
+        } else if($nomeUsuario && $senha) {
         // Ver se tem algum nome cadastrado primeiro fazer essa validação
         $sql = "SELECT * FROM usuarios WHERE nome_usuario = :nome";
         $statement = $conexaoComBanco -> prepare($sql);
@@ -27,11 +31,11 @@
                 exit; // para sair do IF
 
             } else {
-                echo "Nome de usuário já cadastrado";
+                echo "<div class=erro>Nome de usuário já cadastrado.</div>";
             }
 
         } else {
-            echo "Erro ao cadastrar usuário";
+            echo "<div class=erro>Erro ao cadastrar usuário</div>";
             exit;
         }
     }
@@ -52,14 +56,18 @@
     <h1>Cadastro Usuário</h1>
     <div class="conteudo">
         <form name="CadastroUsuario" method="post" action="cadastro_usuario.php">
-            <label for="">Usuário: </label><br>
-            <input type="text" name="txt_usuario">
-            
-            <label for="">Senha: </label><br>
-            <input type="password" name="txt_senha"> 
-
-            <input type="submit" name="btn_salvarUsuario" value="Salvar">
-            <input type="reset" name="btn_limparUsuario" value="Limpar">
+            <div>
+                <label for="">Usuário: </label><br>
+                <input type="text" name="txt_usuario">
+            </div>
+            <div>
+                <label for="">Senha: </label><br>
+                <input type="password" name="txt_senha">
+            </div>
+            <div>
+                <input type="submit" name="btn_salvarUsuario" value="Salvar">
+                <input type="reset" name="btn_limparUsuario" value="Limpar">
+            </div>
         </form>
     </div>
     <div>

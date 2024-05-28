@@ -26,24 +26,30 @@
     if(isset($_POST['btn_Atualizar'])) {
         $dadosCliente = [];
         $id = filter_input(INPUT_POST, 'txt_id'); 
-        $nome = filter_input(INPUT_POST, 'txt_nome');
+        $nomeCliente = filter_input(INPUT_POST, 'txt_nome');
         $telefone = filter_input(INPUT_POST, 'txt_telefone');
         $cep = filter_input(INPUT_POST, 'txt_cep');
 
-        if($id && $nome && $telefone && $cep) {
+        if(empty($nomeCliente)) {
+            echo "<div class=erro>Nome do cliente é obrigatório</div>";
+        } else if(empty($telefone)) {
+            echo "<div class=erro>Telefone do cliente é obrigatório</div>";
+        } else if(empty($cep)) {
+            echo "<div class=erro>CEP do cliente é obrigatório</div>";
+        } else if($id && $nomeCliente && $telefone && $cep) {
             $sql = "UPDATE clientes SET nome_cliente = :nome, telefone = :telefone, cep = :cep WHERE id = :id";
             $statement = $conexaoComBanco -> prepare($sql);
-            $statement -> bindValue(':nome', $nome);
+            $statement -> bindValue(':nome', $nomeCliente);
             $statement -> bindValue(':telefone', $telefone);
             $statement -> bindValue(':cep', $cep);
             $statement -> bindValue(':id', $id);
             $statement-> execute();
 
-            header("Location: lista_clientes.php");
+            header("Location: cadastro_cliente.php");
             exit;
 
         } else {
-            echo "Erro ao atualizar cliente!<br/>";
+            echo "<div class=erro>Erro ao atualizar cliente!</div>";
             exit;
         }
     }
@@ -61,18 +67,22 @@
     <h1>Editar Cliente</h1>
     <div class="conteudo">
         <form name="CadastroCliente" method="post" action="#">
-            <label for="">ID:</label>
-            <input type="text" name="txt_id" value="<?= $dadosCliente['id'];?>" readonly/> 
-
-            <label for="">Nome do cliente:</label>
-            <input type="text" name="txt_nome" value="<?= $dadosCliente['nome_cliente'];?>" />
-
-            <label>Telefone: </label>
-            <input type="text" name="txt_telefone"  value="<?= $dadosCliente['telefone'];?>" />
-
-            <label>CEP: </label>
-            <input type="text" name="txt_cep"  value="<?= $dadosCliente['cep'];?>" />
-
+            <div>
+                <label for="">ID:</label><br>
+                <input type="text" name="txt_id" value="<?= $dadosCliente['id'];?>" readonly/> 
+            </div>
+            <div>
+                <label for="">Nome do cliente:</label><br>
+                <input type="text" name="txt_nome" value="<?= $dadosCliente['nome_cliente'];?>" />
+            </div>
+            <div>
+                <label>Telefone: </label><br>
+                <input type="text" name="txt_telefone"  value="<?= $dadosCliente['telefone'];?>" />
+            </div>
+            <div>
+                <label>CEP: </label><br>
+                <input type="text" name="txt_cep"  value="<?= $dadosCliente['cep'];?>" />
+            </div>
             <input type="submit" name="btn_Atualizar" value="Atualizar" />
         </form>
     </div>

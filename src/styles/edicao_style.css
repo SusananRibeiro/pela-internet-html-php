@@ -4,6 +4,10 @@ body {
     background-color: #eee;
 }
 
+h1 {
+    margin-bottom: 20px;
+}
+
 .conteudo {
     display: flex;
     flex-direction: column;
