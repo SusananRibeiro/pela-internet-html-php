@@ -1,5 +1,5 @@
 <?php 
-    require_once('verificarLogin.php');
+    require_once('verificar_login.php');
     session_destroy(); // vai destruir a sessão
 ?>
 
