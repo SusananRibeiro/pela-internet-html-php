@@ -1,15 +1,15 @@
 <?php 
-    require_once('verificarLogin.php');
+    require_once('verificar_login.php');
     require('conexao.php');
     
     $id = filter_input(INPUT_GET, 'id');  
-    $venda = filter_input(INPUT_POST, 'txt_nomeCliente');
     
-    if($id && $venda) {
-        // Ver se tem algum nome cadastrado primeiro fazer essa validação
-        $sql = "SELECT * FROM vendas WHERE ven.cliente_id = cli.id";
+    if($id) {
+        // Ver se tem alguma venda cadastrado primeiro fazer essa validação
+        $sql = "SELECT ven.cliente_id, cli.id, cli.nome_cliente FROM clientes cli
+        INNER JOIN vendas ven ON ven.cliente_id = cli.id WHERE cli.id = :id";
         $statement = $conexaoComBanco -> prepare($sql);
-        $statement -> bindValue(':nome', $venda);
+        $statement -> bindValue(':id', $id);
         $statement -> execute();
 
         // Ver se tem algum e-mail cadastrado
@@ -18,10 +18,12 @@
             $statement = $conexaoComBanco->prepare($sql);
             $statement -> bindValue(':id', $id);
             $statement -> execute();
+            header("Location: lista_clientes.php");
+        } else if($statement-> rowCount() > 0) {
+            header("Location: erro_exclusao.php");
         } else {
             echo "<div class=erro>Erro ao tentar excluir cliente.</div>";
         }
     }
 
-    header("Location: lista_clientes.php");
 ?>

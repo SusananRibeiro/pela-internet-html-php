@@ -1,5 +1,5 @@
 <?php 
-    require_once('verificarLogin.php');
+    require_once('verificar_login.php');
     require('conexao.php');
 
     if(isset($_POST['btn_salvarProduto'])) {

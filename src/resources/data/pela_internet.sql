@@ -69,16 +69,25 @@ SELECT * FROM clientes;
 SELECT * FROM produtos;
 SELECT * FROM vendas;
 
-SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
-FROM vendas ven
-INNER JOIN clientes cli ON cli.id = ven.cliente_id
-INNER JOIN produtos pro ON pro.id = ven.produto_id;
+-- INNER não vai trazer os registros dos clientes que não tiver vendas
+SELECT ven.cliente_id as 'Tabela Vendas', cli.id as 'Tabela cliente', cli.nome_cliente as 'Tabela nomecliente'
+FROM clientes cli
+INNER JOIN vendas ven ON ven.cliente_id = cli.id
+WHERE cli.id = 7;
+
+SELECT ven.produto_id as 'Tabela Vendas', pro.id as 'Tabela Produto', pro.nome_produto as 'Tabela nomeproduto'
+FROM produtos pro
+INNER JOIN vendas ven ON ven.produto_id = pro.id
+WHERE pro.id = 2;
 
 SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
 FROM vendas ven
 INNER JOIN clientes cli ON cli.id = ven.cliente_id
 INNER JOIN produtos pro ON pro.id = ven.produto_id
 WHERE ven.id = 1;
+
+
+
 
 -- Excluir Tabelas
 /*

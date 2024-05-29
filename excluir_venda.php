@@ -1,5 +1,5 @@
 <?php 
-    require_once('verificarLogin.php');
+    require_once('verificar_login.php');
     require('conexao.php');
     
     $id = filter_input(INPUT_GET, 'id');   
