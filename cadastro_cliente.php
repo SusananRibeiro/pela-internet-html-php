@@ -11,16 +11,20 @@
             echo "<div class=erro>Nome do cliente é obrigatório</div>";
         } else if(empty($telefone)) {
             echo "<div class=erro>Telefone do cliente é obrigatório</div>";
+        } else if(!preg_match("/^[0-9]{11}$/", $telefone)) {
+            echo "<div class=erro>Telefone inválido, somente números.</div>";
         } else if(empty($cep)) {
             echo "<div class=erro>CEP do cliente é obrigatório</div>";
+        } else if(!preg_match("/^[0-9]{8}$/", $cep)) {
+            echo "<div class=erro>CEP inválido, somente números.</div>";
         } else if($nomeCliente && $telefone && $cep) {
-            // Ver se tem algum nome cadastrado primeiro fazer essa validação
+            
+            // Ver se tem algum nome cadastrado primeiro, para não ter nomes repetidos
             $sql = "SELECT * FROM clientes WHERE nome_cliente = :nome";
             $statement = $conexaoComBanco -> prepare($sql);
             $statement -> bindValue(':nome', $nomeCliente);
             $statement -> execute();
     
-            // Ver se tem algum e-mail cadastrado
             if($statement-> rowCount() === 0) {
                 $sql = "INSERT INTO clientes (nome_cliente, telefone, cep) VALUES (:nome, :telefone, :cep)";
                 $statement = $conexaoComBanco->prepare($sql);

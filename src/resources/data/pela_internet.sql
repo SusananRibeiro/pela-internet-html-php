@@ -11,7 +11,7 @@ CREATE TABLE usuarios (
 CREATE TABLE clientes (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome_cliente VARCHAR(150) NOT NULL UNIQUE,
-    telefone VARCHAR(11) NOT NULL,
+    telefone VARCHAR(11) NOT NULL, -- 048 9 9662 1023
     cep INT(8) NOT NULL
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

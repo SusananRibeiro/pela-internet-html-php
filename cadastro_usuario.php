@@ -14,11 +14,11 @@
         } else if(empty($senha)) {
             echo "<div class=erro>Senha do usuário é obrigatório</div>";
         } else if($nomeUsuario && $senha) {
-        // Ver se tem algum nome cadastrado primeiro fazer essa validação
-        $sql = "SELECT * FROM usuarios WHERE nome_usuario = :nome";
-        $statement = $conexaoComBanco -> prepare($sql);
-        $statement -> bindValue(':nome', $nomeUsuario);
-        $statement -> execute();
+
+            $sql = "SELECT * FROM usuarios WHERE nome_usuario = :nome";
+            $statement = $conexaoComBanco -> prepare($sql);
+            $statement -> bindValue(':nome', $nomeUsuario);
+            $statement -> execute();
 
             // Ver se tem algum nome cadastrado
             if($statement -> rowCount() === 0) {
