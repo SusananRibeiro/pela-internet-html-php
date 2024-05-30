@@ -5,7 +5,7 @@
     $lista = [];
     $sql = "SELECT * FROM clientes";
     $statement = $conexaoComBanco -> query($sql); 
-    // Valida sem tem registro no banco de dados
+
     if($statement -> rowCount() > 0) {
         $lista = $statement -> fetchAll(PDO::FETCH_ASSOC);
     }
@@ -44,7 +44,7 @@
                             <td><?= $cliente['id']; ?></td>
                             <td><?= $cliente['nome_cliente']; ?></td>
                             <td><?= $cliente['telefone']; ?></td>
-                            <td><?= $cliente['cep']; ?></td>
+                            <td class="linha-cep"><?= $cliente['cep']; ?><div class="ocultar-cep"></div></td>
                             <td><a href="edicao_cliente.php?id=<?= $cliente['id']; ?>">Editar</a></td>
                             <td><a href="excluir_cliente.php?id=<?= $cliente['id']; ?>">Excluir</a></td>                               
                         </tr>
