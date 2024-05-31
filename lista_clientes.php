@@ -1,14 +1,6 @@
 <?php 
     require_once('verificar_login.php');
-    require('conexao.php');;
-    
-    $lista = [];
-    $sql = "SELECT * FROM clientes";
-    $statement = $conexaoComBanco -> query($sql); 
 
-    if($statement -> rowCount() > 0) {
-        $lista = $statement -> fetchAll(PDO::FETCH_ASSOC);
-    }
 ?>
 
 <!DOCTYPE html>
@@ -39,16 +31,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach($lista as $cliente): ?>
-                        <tr>
-                            <td><?= $cliente['id']; ?></td>
-                            <td><?= $cliente['nome_cliente']; ?></td>
-                            <td><?= $cliente['telefone']; ?></td>
-                            <td class="linha-cep"><?= $cliente['cep']; ?><div class="ocultar-cep"></div></td>
-                            <td><a href="edicao_cliente.php?id=<?= $cliente['id']; ?>">Editar</a></td>
-                            <td><a href="excluir_cliente.php?id=<?= $cliente['id']; ?>">Excluir</a></td>                               
-                        </tr>
-                    <?php endforeach; ?>  
+
+                    <?php 
+                        require('conexao.php');
+
+                        $lista = [];
+                        $sql = "SELECT * FROM clientes";
+                        $statement = $conexaoComBanco -> query($sql); 
+                        $contador = 1;
+                    
+                        if($statement -> rowCount() > 0) {
+                            $lista = $statement -> fetchAll(PDO::FETCH_NUM);
+                            
+                            foreach($lista as $cliente) { 
+                                $numeroPar = $contador %2; 
+                                if($numeroPar === 0) {
+                                    echo "<tr>";
+                                    echo "<td>$cliente[0]</td>";
+                                    echo "<td>$cliente[1]</td>";
+                                    echo "<td>$cliente[2]</td>";
+                                    echo "<td class=linha-cep>$cliente[3]<div class=ocultar-cep></div></td>";
+                                    echo "<td><a href=edicao_cliente.php?id=$cliente[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_cliente.php?id=$cliente[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                } else {
+                                    echo "<tr class=cor-diferente>";
+                                    echo "<td>$cliente[0]</td>";
+                                    echo "<td>$cliente[1]</td>";
+                                    echo "<td>$cliente[2]</td>";
+                                    echo "<td class=linha-cep>$cliente[3]<div class=ocultar-cep></div></td>";
+                                    echo "<td><a href=edicao_cliente.php?id=$cliente[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_cliente.php?id=$cliente[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                }
+                                $contador++;
+                            }  
+                        }
+                        
+                    ?>
+
                 </tbody>
             </table>
         </div>    

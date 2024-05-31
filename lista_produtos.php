@@ -1,15 +1,6 @@
 <?php 
     require_once('verificar_login.php');
-    require('conexao.php');
-    
-    $lista = [];
-    $sql = "SELECT * FROM produtos";
-    $statement = $conexaoComBanco -> query($sql); 
-    // Valida sem tem registro no banco de dados
-    if($statement -> rowCount() > 0) {
-        $lista = $statement -> fetchAll(PDO::FETCH_ASSOC);
 
-    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -38,15 +29,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($lista as $produto): ?>
-                        <tr>
-                            <td><?= $produto['id']; ?></td>
-                            <td><?= $produto['nome_produto']; ?></td>
-                            <td><?= $produto['valor']; ?></td>
-                            <td><a href="edicao_produto.php?id=<?= $produto['id']; ?>">Editar</a></td>
-                            <td><a href="excluir_produto.php?id=<?= $produto['id']; ?>">Excluir</a></td>                               
-                        </tr>
-                    <?php endforeach; ?>                    
+                    <?php 
+                        require('conexao.php');
+                        
+                        $lista = [];
+                        $sql = "SELECT * FROM produtos";
+                        $statement = $conexaoComBanco -> query($sql); 
+                        $contador = 1;
+                    
+                        if($statement -> rowCount() > 0) {
+                            $lista = $statement -> fetchAll(PDO::FETCH_NUM);
+                            
+                            foreach($lista as $produto) { 
+                                $numeroPar = $contador %2; 
+                                if($numeroPar === 0) {
+                                    echo "<tr>";
+                                    echo "<td>$produto[0]</td>";
+                                    echo "<td>$produto[1]</td>";
+                                    echo "<td>$produto[2]</td>";
+                                    echo "<td><a href=edicao_produto.php?id=$produto[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_produto.php?id=$produto[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                } else {
+                                    echo "<tr class=cor-diferente>";
+                                    echo "<td>$produto[0]</td>";
+                                    echo "<td>$produto[1]</td>";
+                                    echo "<td>$produto[2]</td>";
+                                    echo "<td><a href=edicao_produto.php?id=$produto[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_produto.php?id=$produto[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                }
+                                $contador++;
+                            }  
+                        }
+                    ?>                 
                 </tbody>
             </table>
         </div>

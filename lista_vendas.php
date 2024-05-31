@@ -1,15 +1,5 @@
 <?php 
     require_once('verificar_login.php');
-    require('conexao.php');
-    
-    $lista = [];
-    $sql = "SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data FROM vendas ven 
-            INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id";
-    $statement = $conexaoComBanco -> query($sql); 
-    // Valida sem tem registro no banco de dados
-    if($statement -> rowCount() > 0) {
-        $lista = $statement -> fetchAll(PDO::FETCH_ASSOC);
-    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -38,19 +28,50 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                <?php foreach($lista as $venda): ?>
-                        <tr>
-                            <td><?= $venda['id']; ?></td>
-                            <td><?= $venda['nome_cliente']; ?></td>
-                            <td><?= $venda['nome_produto']; ?></td>
-                            <td><?= $venda['quantidade']; ?></td>
-                            <td><?= $venda['total']; ?></td>
-                            <td><?= $venda['data']; ?></td>
-                            <td><a href="edicao_venda.php?id=<?= $venda['id']; ?>">Editar</a></td>
-                            <td><a href="excluir_venda.php?id=<?= $venda['id']; ?>">Excluir</a></td>                               
-                        </tr>
-                    <?php endforeach; ?>  
+                <tbody> 
+                    <?php 
+                        require('conexao.php');
+                        $lista = [];
+                        $sql = "SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data FROM vendas ven 
+                                INNER JOIN clientes cli ON cli.id = ven.cliente_id INNER JOIN produtos pro ON pro.id = ven.produto_id";
+                        $statement = $conexaoComBanco -> query($sql); 
+                        $contador = 1;
+                    
+                        if($statement -> rowCount() > 0) {
+                            $lista = $statement -> fetchAll(PDO::FETCH_NUM);
+                            
+                            foreach($lista as $venda) { 
+                                $numeroPar = $contador %2; 
+                                // $valorFormatoBrasil = number_format($venda[4], ',', '.');
+                                $dataDoBrasil = date('d/m/Y', strtotime($venda[5]));
+                                if($numeroPar === 0) {
+                                    echo "<tr>";
+                                    echo "<td>$venda[0]</td>"; // id
+                                    echo "<td>$venda[1]</td>"; // nome do cliente
+                                    echo "<td>$venda[2]</td>"; // nome do produto
+                                    echo "<td>$venda[3]</td>"; // quantidade
+                                    echo "<td>$venda[4]</td>"; // total
+                                    echo "<td>$dataDoBrasil</td>"; // data
+                                    echo "<td><a href=edicao_venda.php?id=$venda[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_venda.php?id=$venda[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                } else {
+                                    echo "<tr class=cor-diferente>";
+                                    echo "<td>$venda[0]</td>";
+                                    echo "<td>$venda[1]</td>";
+                                    echo "<td>$venda[2]</td>";
+                                    echo "<td>$venda[3]</td>";
+                                    echo "<td>$venda[4]</td>";
+                                    echo "<td>$dataDoBrasil</td>";
+                                    echo "<td><a href=edicao_venda.php?id=$venda[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_venda.php?id=$venda[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                }
+                                $contador++;
+                            }  
+                        }
+                    ?> 
+
                 </tbody>
             </table>
         </div>    

@@ -32,6 +32,7 @@
         $quantidade = filter_input(INPUT_POST, 'txt_quantidade');
         $total = filter_input(INPUT_POST, 'txt_total');
         $data = filter_input(INPUT_POST, 'txt_data');
+        // $dataDoBrasil = date('d/m/Y', strtotime($venda[5]));
 
         if(empty($quantidade)) {
             echo "<div class=erro>Quantidade da venda é obrigatório</div>";
