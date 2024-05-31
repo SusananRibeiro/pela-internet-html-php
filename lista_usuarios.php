@@ -1,15 +1,5 @@
 <?php 
     require_once('verificar_login.php');
-    require('conexao.php');
-
-    $lista = [];
-    $sql = "SELECT * FROM usuarios";
-    $statement = $conexaoComBanco -> query($sql); 
-    // Valida sem tem registro no banco de dados
-    if($statement -> rowCount() > 0) {
-        $lista = $statement -> fetchAll(PDO::FETCH_ASSOC);
-    }
-
 
 ?>
 <!DOCTYPE html>
@@ -41,15 +31,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($lista as $usuario): ?>
-                        <tr>
-                            <td><?= $usuario['id']; ?></td>
-                            <td><?= $usuario['nome_usuario']; ?></td>
-                            <td><?= $usuario['senha']; ?></td>
-                            <td><a href="edicao_usuario.php?id=<?= $usuario['id']; ?>">Editar</a></td>
-                            <td><a href="excluir_usuario.php?id=<?= $usuario['id']; ?>">Excluir</a></td>                               
-                        </tr>
-                    <?php endforeach; ?> 
+                    <?php 
+                        require('conexao.php');
+
+                        $lista = [];
+                        $sql = "SELECT * FROM usuarios";
+                        $statement = $conexaoComBanco -> query($sql); 
+                        $contador = 1;
+                    
+                        if($statement -> rowCount() > 0) {
+                            $lista = $statement -> fetchAll(PDO::FETCH_NUM);
+                            
+                            foreach($lista as $usuario) { 
+                                $numeroPar = $contador %2; 
+                                if($numeroPar === 0) {
+                                    echo "<tr>";
+                                    echo "<td>$usuario[0]</td>";
+                                    echo "<td>$usuario[1]</td>";
+                                    echo "<td>$usuario[2]</td>";
+                                    echo "<td><a href=edicao_usuario.php?id=$usuario[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_usuario.php?id=$usuario[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                } else {
+                                    echo "<tr class=cor-diferente>";
+                                    echo "<td>$usuario[0]</td>";
+                                    echo "<td>$usuario[1]</td>";
+                                    echo "<td>$usuario[2]</td>";
+                                    echo "<td><a href=edicao_usuario.php?id=$usuario[0]>Editar</a></td>";
+                                    echo "<td><a href=excluir_usuario.php?id=$usuario[0]>Excluir</a></td>";
+                                    echo "</tr>";
+                                }
+                                $contador++;
+                            }  
+                        }
+                        
+                    ?>
                 </tbody>
             </table>
         </div>    
