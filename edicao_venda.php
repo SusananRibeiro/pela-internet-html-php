@@ -97,7 +97,7 @@
                 <label>Data: </label><br>
                 <input type="text" name="txt_data"  value="<?= $dadosVenda['data'];?>" />
             </div>
-            <input type="submit" name="btn_Atualizar" value="Atualizar" />
+            <button type="submit" name="btn_Atualizar">Atualizar</button>
         </form>
     </div>
     <div>

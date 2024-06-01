@@ -76,7 +76,7 @@
                 <label>Valor: </label><br>
                 <input type="text" name="txt_valor"  value="<?= $dadosProduto['valor']; ?>" />
             </div>
-            <input type="submit" name="btn_Atualizar" value="Atualizar" />
+            <button type="submit" name="btn_Atualizar">Atualizar</button>
         </form>
     </div>
     <div>

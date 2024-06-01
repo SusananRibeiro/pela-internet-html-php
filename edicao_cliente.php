@@ -45,7 +45,7 @@
             $statement -> bindValue(':id', $id);
             $statement-> execute();
 
-            header("Location: cadastro_cliente.php");
+            header("Location: lista_clientes.php");
             exit;
 
         } else {
@@ -83,7 +83,7 @@
                 <label>CEP: </label><br>
                 <input type="text" name="txt_cep"  value="<?= $dadosCliente['cep'];?>" />
             </div>
-            <input type="submit" name="btn_Atualizar" value="Atualizar" />
+            <button type="submit" name="btn_Atualizar">Atualizar</button>
         </form>
     </div>
     <div>

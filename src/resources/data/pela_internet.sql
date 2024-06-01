@@ -43,6 +43,7 @@ INSERT INTO usuarios (nome_usuario, senha) VALUES ('usuario4', '63258741');
 INSERT INTO usuarios (nome_usuario, senha) VALUES ('teste', '123456');
 -- Atualizar as senha para deixá criptografadas
 UPDATE usuarios SET senha = md5(senha) WHERE id in(1, 2, 3, 4, 5);
+UPDATE usuarios SET senha = md5('123456') WHERE id in(8);
 
 -- Cliente
 INSERT INTO clientes (nome_cliente, telefone, cep) VALUES ('José Nunes', '48999999999', 88801500);

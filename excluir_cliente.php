@@ -20,7 +20,7 @@
             $statement -> execute();
             header("Location: lista_clientes.php");
         } else if($statement-> rowCount() > 0) {
-            header("Location: erro_exclusao.php");
+            header("Location: erro_exclusao.php?acao=cliente");
         } else {
             echo "<div class=erro>Erro ao tentar excluir cliente.</div>";
         }
