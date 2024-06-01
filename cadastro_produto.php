@@ -53,10 +53,8 @@
                 <label for="">Valor: </label><br>
                 <input type="text" name="txt_valor">
             </div>
-            <div>
-                <input type="submit" name="btn_salvarProduto" value="Salvar">
-                <input type="reset" name="btn_limparProduto" value="Limpar">
-            </div>
+            <button type="submit" name="btn_salvarProduto">Salvar</button>
+            <button type="reset" name="btn_limparProduto">Limpar</button>
         </form>
     </div>
     <div>

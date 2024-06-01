@@ -62,10 +62,8 @@
                 <label for="">Senha: </label><br>
                 <input type="password" name="txt_senha">
             </div>
-            <div>
-                <input type="submit" name="btn_salvarUsuario" value="Salvar">
-                <input type="reset" name="btn_limparUsuario" value="Limpar">
-            </div>
+            <button type="submit" name="btn_salvarUsuario">Salvar</button>
+            <button type="reset" name="btn_limparUsuario">Limpar</button>
         </form>
     </div>
     <div>

@@ -12,7 +12,6 @@
         $statement -> bindValue(':id', $id);
         $statement -> execute();
 
-        // Ver se tem algum e-mail cadastrado
         if($statement-> rowCount() === 0) { 
             $sql = "DELETE FROM produtos WHERE id = :id";
             $statement = $conexaoComBanco->prepare($sql);
@@ -20,7 +19,7 @@
             $statement -> execute();
             header("Location: lista_produtos.php");
         } else if($statement-> rowCount() > 0) {
-            header("Location: erro_exclusao.php");
+            header("Location: erro_exclusao.php?acao=produto");
         } else {
             print_r($statement);
             echo "<div class=erro>Erro ao tentar excluir produto.</div>";

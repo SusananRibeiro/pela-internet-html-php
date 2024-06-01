@@ -75,10 +75,8 @@
                 <label for="">CEP: </label><br>
                 <input type="number" name="txt_cep">
             </div>
-            <div>
-                <input type="submit" name="btn_salvarCliente" value="Salvar">
-                <input type="reset" name="btn_limparCliente" value="Limpar">
-            </div>
+            <button type="submit" name="btn_salvarCliente">Salvar</button>
+            <button type="reset" name="btn_limparCliente">Limpar</button>
         </form>
     </div>
     <div>
