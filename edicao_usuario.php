@@ -27,7 +27,7 @@
         $dadosUsuario = [];
         $id = filter_input(INPUT_POST, 'txt_id'); 
         $nomeUsuario = filter_input(INPUT_POST, 'txt_nome');
-        $senha = filter_input(INPUT_POST, 'txt_senha');
+        $senha = md5(filter_input(INPUT_POST, 'txt_senha'));
 
         if(empty($nomeUsuario)) {
             echo "<div class=erro>Nome do usuário é obrigatório</div>";

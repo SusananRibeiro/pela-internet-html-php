@@ -5,7 +5,7 @@ CREATE DATABASE curso CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE TABLE usuarios (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome_usuario VARCHAR(100) NOT NULL UNIQUE,
-    senha VARCHAR(8) NOT NULL
+    senha VARCHAR(32) NOT NULL
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE clientes (
@@ -40,7 +40,9 @@ INSERT INTO usuarios (nome_usuario, senha) VALUES ('usuario1', '12345678');
 INSERT INTO usuarios (nome_usuario, senha) VALUES ('usuario2', '87654321');
 INSERT INTO usuarios (nome_usuario, senha) VALUES ('usuario3', '14785236');
 INSERT INTO usuarios (nome_usuario, senha) VALUES ('usuario4', '63258741');
-INSERT INTO usuarios (nome_usuario, senha) VALUES ('teste', '123');
+INSERT INTO usuarios (nome_usuario, senha) VALUES ('teste', '123456');
+-- Atualizar as senha para deixá criptografadas
+UPDATE usuarios SET senha = md5(senha) WHERE id in(1, 2, 3, 4, 5);
 
 -- Cliente
 INSERT INTO clientes (nome_cliente, telefone, cep) VALUES ('José Nunes', '48999999999', 88801500);
@@ -69,17 +71,20 @@ SELECT * FROM clientes;
 SELECT * FROM produtos;
 SELECT * FROM vendas;
 
+-- Consultar a senha com criptografia usando o md5() nativo no MySQL
+SELECT md5(senha) as 'Senha Criptografada' FROM usuarios WHERE id in(1, 2, 3, 4, 5);
+
 -- INNER não vai trazer os registros dos clientes que não tiver vendas
 SELECT ven.cliente_id as 'Tabela Vendas', cli.id as 'Tabela cliente', cli.nome_cliente as 'Tabela nomecliente'
 FROM clientes cli
 INNER JOIN vendas ven ON ven.cliente_id = cli.id
 WHERE cli.id = 7;
-
+--
 SELECT ven.produto_id as 'Tabela Vendas', pro.id as 'Tabela Produto', pro.nome_produto as 'Tabela nomeproduto'
 FROM produtos pro
 INNER JOIN vendas ven ON ven.produto_id = pro.id
 WHERE pro.id = 2;
-
+--
 SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, ven.data 
 FROM vendas ven
 INNER JOIN clientes cli ON cli.id = ven.cliente_id
