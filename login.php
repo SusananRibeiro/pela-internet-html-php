@@ -4,7 +4,7 @@
 
     if(isset($_POST['btn_acessar'])) {
         $usuario = $_POST['usuario'];
-        $senha = $_POST['senha'];
+        $senha = md5($_POST['senha']); // precisa colocar a criptografia na autenticação também
 
         $sql = $conexaoComBanco -> prepare("SELECT * FROM usuarios WHERE nome_usuario = :usuario AND senha = :senha");
         $sql -> bindValue(':usuario', $usuario);

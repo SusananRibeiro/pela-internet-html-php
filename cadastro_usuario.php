@@ -3,11 +3,9 @@
     require('conexao.php');
     
     if(isset($_POST['btn_salvarUsuario'])) {
-        // $hashMD5 = md5($senhaDoUsuario);
-        // // Só para teste
-        // echo "O hash MD5 da senha é: " . $hashMD5."<br/>";
         $nomeUsuario = filter_input(INPUT_POST, 'txt_usuario');
-        $senha = filter_input(INPUT_POST, 'txt_senha');
+        $senha = md5(filter_input(INPUT_POST, 'txt_senha')); // função md5 vai criptografar a senha 
+
 
         if(empty($nomeUsuario)) {
             echo "<div class=erro>Nome do usuário é obrigatório</div>";
