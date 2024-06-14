@@ -43,6 +43,7 @@
                             foreach($lista as $venda) { 
                                 $numeroPar = $contador %2; 
                                 // $valorFormatoBrasil = number_format($venda[4], ',', '.');
+                                $valorFormatoDoBrasil = number_format($venda[4], 2, ',', '');
                                 $dataDoBrasil = date('d/m/Y', strtotime($venda[5]));
                                 if($numeroPar === 0) {
                                     echo "<tr>";
@@ -50,7 +51,7 @@
                                     echo "<td>$venda[1]</td>"; // nome do cliente
                                     echo "<td>$venda[2]</td>"; // nome do produto
                                     echo "<td>$venda[3]</td>"; // quantidade
-                                    echo "<td>$venda[4]</td>"; // total
+                                    echo "<td>$valorFormatoDoBrasil</td>"; // total
                                     echo "<td>$dataDoBrasil</td>"; // data
                                     echo "<td><a href=edicao_venda.php?id=$venda[0]>Editar</a></td>";
                                     echo "<td><a href=excluir_venda.php?id=$venda[0]>Excluir</a></td>";
@@ -61,7 +62,7 @@
                                     echo "<td>$venda[1]</td>";
                                     echo "<td>$venda[2]</td>";
                                     echo "<td>$venda[3]</td>";
-                                    echo "<td>$venda[4]</td>";
+                                    echo "<td>$valorFormatoDoBrasil</td>";
                                     echo "<td>$dataDoBrasil</td>";
                                     echo "<td><a href=edicao_venda.php?id=$venda[0]>Editar</a></td>";
                                     echo "<td><a href=excluir_venda.php?id=$venda[0]>Excluir</a></td>";

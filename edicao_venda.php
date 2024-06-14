@@ -32,7 +32,7 @@
         $quantidade = filter_input(INPUT_POST, 'txt_quantidade');
         $total = filter_input(INPUT_POST, 'txt_total');
         $data = filter_input(INPUT_POST, 'txt_data');
-        // $dataDoBrasil = date('d/m/Y', strtotime($venda[5]));
+        $dataNoFormatoDoBanco = date('Y-m-d', strtotime(str_replace('/', '-', $data)));
 
         if(empty($quantidade)) {
             echo "<div class=erro>Quantidade da venda é obrigatório</div>";
@@ -45,7 +45,7 @@
             $statement = $conexaoComBanco -> prepare($sql);
             $statement -> bindValue(':quantidade', $quantidade);
             $statement -> bindValue(':total', $total);
-            $statement -> bindValue(':data', $data);
+            $statement -> bindValue(':data', $dataNoFormatoDoBanco);
             $statement -> bindValue(':id', $id);
             $statement -> execute();
 

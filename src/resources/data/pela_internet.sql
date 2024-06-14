@@ -1,5 +1,5 @@
--- Criar o banco
-CREATE DATABASE curso CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- Criar o banco 'curso'
+-- CREATE DATABASE curso CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Criar a Tabela
 CREATE TABLE usuarios (
@@ -92,7 +92,17 @@ INNER JOIN clientes cli ON cli.id = ven.cliente_id
 INNER JOIN produtos pro ON pro.id = ven.produto_id
 WHERE ven.id = 1;
 
+-- Data formatada
+SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, DATE_FORMAT(ven.data , '%d/%m/%Y') AS 'Data Formatada'
+FROM vendas ven
+INNER JOIN clientes cli ON cli.id = ven.cliente_id
+INNER JOIN produtos pro ON pro.id = ven.produto_id
+WHERE ven.id = 1;
 
+SELECT ven.id, cli.nome_cliente, pro.nome_produto, ven.quantidade, ven.total, DATE_FORMAT(ven.data , '%d/%m/%Y') AS 'Data Formatada'
+FROM vendas ven
+INNER JOIN clientes cli ON cli.id = ven.cliente_id
+INNER JOIN produtos pro ON pro.id = ven.produto_id;
 
 
 -- Excluir Tabelas

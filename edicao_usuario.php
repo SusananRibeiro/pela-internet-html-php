@@ -42,7 +42,6 @@
             $statement-> execute();
 
             header("Location: lista_usuarios.php");
-            // echo "Usuário atualizado com sucesso!<br/>";
             exit;
 
         } else {

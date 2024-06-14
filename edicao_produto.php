@@ -29,6 +29,7 @@
         $id = filter_input(INPUT_POST, 'txt_id'); 
         $nomeProduto = filter_input(INPUT_POST, 'txt_nome');
         $valor = filter_input(INPUT_POST, 'txt_valor');
+        $valorDoBanco = str_replace(',', '.', $valor);
 
         if(empty($nomeProduto)) {
             echo "<div class=erro>Nome do produto é obrigatório</div>";
@@ -38,7 +39,7 @@
             $sql = "UPDATE produtos SET nome_produto = :nome, valor = :valor WHERE id = :id";
             $statement = $conexaoComBanco -> prepare($sql);
             $statement -> bindValue(':nome', $nomeProduto);
-            $statement -> bindValue(':valor', $valor);
+            $statement -> bindValue(':valor', $valorDoBanco);
             $statement -> bindValue(':id', $id);
             $statement -> execute();
 
