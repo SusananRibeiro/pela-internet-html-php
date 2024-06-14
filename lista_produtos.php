@@ -42,11 +42,13 @@
                             
                             foreach($lista as $produto) { 
                                 $numeroPar = $contador %2; 
+                                $valorFormatoDoBrasil = number_format($produto[2], 2, ',', '');
+
                                 if($numeroPar === 0) {
                                     echo "<tr>";
                                     echo "<td>$produto[0]</td>";
                                     echo "<td>$produto[1]</td>";
-                                    echo "<td>$produto[2]</td>";
+                                    echo "<td>$valorFormatoDoBrasil</td>";
                                     echo "<td><a href=edicao_produto.php?id=$produto[0]>Editar</a></td>";
                                     echo "<td><a href=excluir_produto.php?id=$produto[0]>Excluir</a></td>";
                                     echo "</tr>";
@@ -54,7 +56,7 @@
                                     echo "<tr class=cor-diferente>";
                                     echo "<td>$produto[0]</td>";
                                     echo "<td>$produto[1]</td>";
-                                    echo "<td>$produto[2]</td>";
+                                    echo "<td>$valorFormatoDoBrasil</td>";
                                     echo "<td><a href=edicao_produto.php?id=$produto[0]>Editar</a></td>";
                                     echo "<td><a href=excluir_produto.php?id=$produto[0]>Excluir</a></td>";
                                     echo "</tr>";

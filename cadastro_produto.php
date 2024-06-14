@@ -6,7 +6,8 @@
 
         $nomeProduto = filter_input(INPUT_POST, 'txt_nomeProduto');
         $valor = filter_input(INPUT_POST, 'txt_valor');
-    
+        $valorDoBanco = str_replace(',', '.', $valor);
+            
         if(empty($nomeProduto)) {
             echo "<div class=erro>Nome do produto é obrigatório</div>";
         } else if(empty($valor)) {
@@ -15,7 +16,7 @@
             $sql = "INSERT INTO produtos (nome_produto, valor) VALUES (:nome, :valor)";
             $statement = $conexaoComBanco->prepare($sql);
             $statement -> bindValue(':nome', $nomeProduto);
-            $statement -> bindValue(':valor', $valor);
+            $statement -> bindValue(':valor', $valorDoBanco);
             $statement -> execute();
 
             // Voltar para a página a lista
